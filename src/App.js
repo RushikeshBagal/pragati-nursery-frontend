@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline } from "@mui/material";
+import "./App.css";
+import { RouterComponent } from "./routes/index";
+import Header from "./components/layout/header/header";
+import Footer from "./components/layout/footer/footer";
+import { AppThemeProvider } from "./theme";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main-layout">
+      <AppThemeProvider>
+        <CssBaseline />
+        <Header />
+        <RouterComponent />
+        <Footer />
+      </AppThemeProvider>
     </div>
   );
-}
+};
 
 export default App;
