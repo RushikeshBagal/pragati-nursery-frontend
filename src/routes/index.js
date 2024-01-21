@@ -9,6 +9,8 @@ import DashboardResetPassword from "../pages/dashboard/resetPassword";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
 // import StoreLocator from "../pages/storeLocator";
+import { AddCategory } from "../pages/dashboard/addCategory";
+import { AddProduct } from "../pages/dashboard/addProduct";
 
 export const RouterComponent = () => {
   return (
@@ -23,6 +25,8 @@ export const RouterComponent = () => {
           <Route path="/dashboard-resetpassword" element={<DashboardResetPassword />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-condition" element={<TermsCondition />} />
+          <Route path="/add-category" element={<AddCategory />} />
+          <Route path="/add-product" element={<AddProduct />} />
           {/* <Route path="/storelocator" element={<StoreLocator />} /> */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
