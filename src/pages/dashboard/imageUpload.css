@@ -1,0 +1,11 @@
+:root {
+    #input-doc-upload {
+        display: none;
+    }
+}
+
+.after-upload-image {
+    max-height: 25vh;
+    width: 100%;
+    padding-bottom: 10px;
+}

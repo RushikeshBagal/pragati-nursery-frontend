@@ -3,6 +3,7 @@ import { SearchBox } from "../../components/common/SearchBox";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {
+  Autocomplete,
   Box,
   Button,
   FormControl,
@@ -19,6 +20,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { ImageUpload } from "./imageUpload";
 
 const List = [
   {
@@ -38,6 +40,21 @@ const List = [
   },
   {
     name: "Bamboo Tree",
+  },
+];
+
+const categoryList = [
+  {
+    label: "Plants",
+  },
+  {
+    label: "Fertilizers",
+  },
+  {
+    label: "Tools",
+  },
+  {
+    label: "Service",
   },
 ];
 
@@ -72,10 +89,6 @@ export const AddProduct = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    {/* <TableCell sx={{flexDirection:"row", display:"flex", justifyContent:"space-between"}}>
-                            <Typography>Category</Typography>
-                            <Typography>Action</Typography>
-                        </TableCell> */}
                     <TableCell>
                       <Typography>Product</Typography>
                     </TableCell>
@@ -123,6 +136,16 @@ export const AddProduct = () => {
                 rows={4}
                 sx={{ pb: 2 }}
               />
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={categoryList}
+                sx={{ pb: 2 }}
+                fullWidth
+                renderInput={(params) => (
+                  <TextField {...params} label="Select Category" />
+                )}
+              />
               <FormControl fullWidth sx={{ pb: 2 }}>
                 <InputLabel htmlFor="outlined-adornment-amount">
                   Amount
@@ -136,6 +159,16 @@ export const AddProduct = () => {
                   type="number"
                 />
               </FormControl>
+              <Box
+                sx={{
+                  border: "1px solid #000",
+                  p: 2,
+                  textAlign: "center",
+                  height: "35vh",
+                }}
+              >
+                <ImageUpload/>
+              </Box>
             </Box>
             <Box
               sx={{
