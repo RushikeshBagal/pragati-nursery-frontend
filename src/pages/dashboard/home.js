@@ -109,7 +109,7 @@ const DashboardHome = () => {
         </Toolbar>
         <Divider />
         <List>
-          {["Inventry Management", "Inwards", "Outwards", "Add New Product", "Add New Category" ].map((text, index) => (
+          {["Inventry Management", "Add New Product", "Add New Category" ].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
