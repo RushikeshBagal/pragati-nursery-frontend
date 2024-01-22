@@ -13,6 +13,7 @@ import { AddCategory } from "../pages/dashboard/addCategory";
 import { AddProduct } from "../pages/dashboard/addProduct";
 import { InventryManagement } from "../pages/dashboard/inventryManagement";
 import { InOutInventry } from "../pages/dashboard/inOutInventry";
+import { PriceUpdate } from "../pages/dashboard/priceUpdate";
 
 export const RouterComponent = () => {
   return (
@@ -31,6 +32,7 @@ export const RouterComponent = () => {
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/inventry-management" element={<InventryManagement />} />
           <Route path="/inventry-inOut" element={<InOutInventry />} />
+          <Route path="/price-update" element={<PriceUpdate />} />
           {/* <Route path="/storelocator" element={<StoreLocator />} /> */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
