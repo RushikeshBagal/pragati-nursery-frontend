@@ -1,42 +1,42 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Home from "../pages/home/home";
-import PageNotFound from "../pages/PageNotFound"
-import DashboardHome from "../pages/dashboard/home";
-import DashboardLogin from "../pages/dashboard/login";
-import DashboardForgotPassword from "../pages/dashboard/forgotPassword";
-import DashboardResetPassword from "../pages/dashboard/resetPassword";
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import PageNotFound from "../pages/PageNotFound";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
-// import StoreLocator from "../pages/storeLocator";
-import { AddCategory } from "../pages/dashboard/addCategory";
-import { AddProduct } from "../pages/dashboard/addProduct";
-import { InventryManagement } from "../pages/dashboard/inventryManagement";
-import { InOutInventry } from "../pages/dashboard/inOutInventry";
-import { PriceUpdate } from "../pages/dashboard/priceUpdate";
+import Home from "../pages/home/Home";
+import DashboardHome from "../pages/Dashboard/Home";
+import DashboardLogin from "../pages/Dashboard/authentication/Login";
+import DashboardForgotPassword from "../pages/Dashboard/authentication/ForgotPassword";
+import DashboardResetPassword from "../pages/Dashboard/authentication/ResetPassword";
+import { InOutInventory } from "../pages/Dashboard/InOutInventory";
 
-export const RouterComponent = () => {
+export const RouterComponent = ({ setShowFooter }) => {
+  const location = useLocation();
+  const { pathname } = location;
+
+  useEffect(() => {
+    if (pathname.includes("dashboard")) {
+      setShowFooter(false);
+    }
+  }, [pathname, setShowFooter]);
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="home" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/dashboard-home" element={<DashboardHome />} />
-          <Route path="/dashboard-login" element={<DashboardLogin />} />
-          <Route path="/dashboard-forgotpassword" element={<DashboardForgotPassword />} />
-          <Route path="/dashboard-resetpassword" element={<DashboardResetPassword />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-condition" element={<TermsCondition />} />
-          <Route path="/add-category" element={<AddCategory />} />
-          <Route path="/add-product" element={<AddProduct />} />
-          <Route path="/inventry-management" element={<InventryManagement />} />
-          <Route path="/inventry-inOut" element={<InOutInventry />} />
-          <Route path="/price-update" element={<PriceUpdate />} />
-          {/* <Route path="/storelocator" element={<StoreLocator />} /> */}
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="home" />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/dashboard" element={<DashboardHome />} />
+      <Route path="/dashboard-login" element={<DashboardLogin />} />
+      <Route
+        path="/dashboard-forgotpassword"
+        element={<DashboardForgotPassword />}
+      />
+      <Route
+        path="/dashboard-resetpassword"
+        element={<DashboardResetPassword />}
+      />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms-condition" element={<TermsCondition />} />
+      <Route path="/inventory-in-out" element={<InOutInventory />} />
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
   );
 };

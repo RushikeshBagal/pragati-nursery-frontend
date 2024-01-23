@@ -1,27 +1,20 @@
 import React from "react";
 import {
-  Autocomplete,
   Box,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
-  FormGroup,
   Grid,
   IconButton,
   Input,
   InputAdornment,
   InputLabel,
-  Link,
-  TextField,
   Typography,
 } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const DashboardLogin = () => {
+const DashboardResetPassword = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
 
@@ -32,7 +25,8 @@ const DashboardLogin = () => {
   return (
     <Box
       sx={{
-        marginBottom: "50px",
+        mt: 15,
+        mb: 5,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -55,25 +49,11 @@ const DashboardLogin = () => {
             lg={6}
             sx={{ paddingX: "50px", paddingY: "50px" }}
           >
-            <Typography mb={1}>Sign In</Typography>
-            <Typography mb={3}>See your website features!</Typography>
+            <Typography mb={6}>Reset Password</Typography>
+            {/* <Typography mb={6}>See your website features!</Typography> */}
             <FormControl variant="standard" fullWidth>
               <InputLabel htmlFor="input-with-icon-adornment">
-                <Typography>Username</Typography>
-              </InputLabel>
-              <Input
-                sx={{ marginBottom: "8px" }}
-                id="input-with-icon-adornment"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            <FormControl variant="standard" fullWidth>
-              <InputLabel htmlFor="input-with-icon-adornment">
-                <Typography>Password</Typography>
+                <Typography>New Password</Typography>
               </InputLabel>
               <Input
                 sx={{ marginBottom: "8px" }}
@@ -97,37 +77,28 @@ const DashboardLogin = () => {
                 }
               />
             </FormControl>
-            <Box
-              mt={2}
-              mb={2}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Remember me"
-                />
-              </FormGroup>
-              <Link
-                href="#"
-                underline="hover"
-                //   sx={{ color: "#4169E1", display: "block" }}
-              >
-                Forgot Password ?
-              </Link>
-            </Box>
+            <FormControl variant="standard" fullWidth>
+              <InputLabel htmlFor="input-with-icon-adornment">
+                <Typography>Confirm new password</Typography>
+              </InputLabel>
+              <Input
+                sx={{ marginBottom: "8px" }}
+                id="input-with-icon-adornment"
+                type="password"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
             <Button
               disabled={disabled}
               variant="contained"
               fullWidth
-              sx={{ borderRadius: "20px" }}
+              sx={{ borderRadius: "20px", marginTop: "16px" }}
             >
-              Sign In
+              Submit
             </Button>
           </Grid>
         </Grid>
@@ -135,4 +106,5 @@ const DashboardLogin = () => {
     </Box>
   );
 };
-export default DashboardLogin;
+
+export default DashboardResetPassword;

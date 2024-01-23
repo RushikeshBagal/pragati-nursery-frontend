@@ -1,6 +1,5 @@
 import React from "react";
-import LoginDrawer from "./loginDrawer";
-import Cart from "../cart";
+import LoginDrawer from "./LoginDrawer";
 
 const Home = () => {
     

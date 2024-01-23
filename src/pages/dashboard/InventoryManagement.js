@@ -44,7 +44,7 @@ const List = [
   },
 ];
 
-export const InventryManagement = () => {
+export const InventoryManagement = () => {
   return (
     <Box
       sx={{

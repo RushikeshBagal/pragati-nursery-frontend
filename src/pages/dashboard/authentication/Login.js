@@ -1,22 +1,27 @@
-import React from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   Grid,
   IconButton,
   Input,
   InputAdornment,
   InputLabel,
+  Link,
   Typography,
 } from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const DashboardResetPassword = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [disabled, setDisabled] = React.useState(true);
+const DashboardLogin = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -25,7 +30,8 @@ const DashboardResetPassword = () => {
   return (
     <Box
       sx={{
-        marginBottom: "50px",
+        mt: 15,
+        mb: 5,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -48,15 +54,27 @@ const DashboardResetPassword = () => {
             lg={6}
             sx={{ paddingX: "50px", paddingY: "50px" }}
           >
-            <Typography mb={6}>Reset Password</Typography>
-            {/* <Typography mb={6}>See your website features!</Typography> */}
+            <Typography mb={1}>Sign In</Typography>
+            {/* <Typography mb={3}>See your website features!</Typography> */}
             <FormControl variant="standard" fullWidth>
-              <InputLabel htmlFor="input-with-icon-adornment">
-                <Typography>New Password</Typography>
+              <InputLabel>
+                <Typography>Username</Typography>
               </InputLabel>
               <Input
                 sx={{ marginBottom: "8px" }}
-                id="input-with-icon-adornment"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            <FormControl variant="standard" fullWidth>
+              <InputLabel>
+                <Typography>Password</Typography>
+              </InputLabel>
+              <Input
+                sx={{ marginBottom: "8px" }}
                 type={showPassword ? "text" : "password"}
                 startAdornment={
                   <InputAdornment position="start">
@@ -76,28 +94,36 @@ const DashboardResetPassword = () => {
                 }
               />
             </FormControl>
-            <FormControl variant="standard" fullWidth>
-              <InputLabel htmlFor="input-with-icon-adornment">
-                <Typography>Confirm new password</Typography>
-              </InputLabel>
-              <Input
-                sx={{ marginBottom: "8px" }}
-                id="input-with-icon-adornment"
-                type="password"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <LockIcon />
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
+            <Box
+              mt={2}
+              mb={2}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Remember me"
+                />
+              </FormGroup>
+              <Link
+                href="#"
+                underline="hover"
+              >
+                Forgot Password ?
+              </Link>
+            </Box>
             <Button
               disabled={disabled}
               variant="contained"
               fullWidth
-              sx={{ borderRadius: "20px", marginTop: "16px" }}
+              sx={{ borderRadius: "20px" }}
             >
-              Submit
+              Sign In
             </Button>
           </Grid>
         </Grid>
@@ -105,5 +131,4 @@ const DashboardResetPassword = () => {
     </Box>
   );
 };
-
-export default DashboardResetPassword;
+export default DashboardLogin;

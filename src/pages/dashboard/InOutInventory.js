@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 
-export const InOutInventry = () => {
+export const InOutInventory = () => {
   const [selectedIn, setSelectedIn] = useState(false);
   const [selectedOut, setSelectedOut] = useState(false);
   return (
@@ -98,7 +98,6 @@ export const InOutInventry = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
             justifyContent: "space-between",
           }}
         >

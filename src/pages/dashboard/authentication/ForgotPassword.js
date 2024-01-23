@@ -18,7 +18,8 @@ const DashboardForgotPassword = () => {
   return (
     <Box
       sx={{
-        marginBottom: "50px",
+        mt: 15,
+        mb: 5,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

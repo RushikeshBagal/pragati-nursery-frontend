@@ -1,126 +1,54 @@
-import React from "react";
-import {
-  AppBar,
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import { AppBar, Box, Grid } from "@mui/material";
+import SideBar from "./Layout/SideBar";
+import Header from "./Layout/Header";
+import { useState } from "react";
+import { InventoryManagement } from "./InventoryManagement";
+import { AddProduct } from "./AddProduct";
+import { AddCategory } from "./AddCategory";
+import { PriceUpdate } from "./PriceUpdate";
 
 const drawerWidth = 270;
 
-const DashboardHome = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [auth, setAuth] = React.useState(true);
+const DashboardHome = ({ children }) => {
+  const [selectedTab, setSelectedTab] = useState("Inventory Management");
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  // const [auth, setAuth] = React.useState(true);
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
   return (
     <Box mb={15}>
       <AppBar
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        <Toolbar
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography variant="h6" noWrap component="div">
-            Dashboard
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-              <Typography pl={1}>Admin</Typography>
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
+        <Header />
       </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Pragati Nursery
-          </Typography>
-        </Toolbar>
-        <Divider />
-        <List>
-          {["Inventry Management", "Add New Product", "Add New Category","Price Update", "Sales Chart" ].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+      <Grid container>
+        <Grid item sx={{ maxWidth: drawerWidth }}>
+          <SideBar
+            drawerWidth={drawerWidth}
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+          />
+        </Grid>
+        <Grid item sx={{ width: `calc(100% - ${drawerWidth}px)` }}>
+          {selectedTab === "Inventory Management" ? (
+            <InventoryManagement />
+          ) : selectedTab === "Add New Product" ? (
+            <AddProduct />
+          ) : selectedTab === "Add New Category" ? (
+            <AddCategory />
+          ) : selectedTab === "Price Update" ? (
+            <PriceUpdate />
+          ) : selectedTab === "Sales Chart" ? (
+            <></>
+          ) : (
+            <></>
+          )}
+        </Grid>
+      </Grid>
     </Box>
   );
 };

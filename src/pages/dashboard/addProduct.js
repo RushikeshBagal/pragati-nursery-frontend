@@ -20,7 +20,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ImageUpload } from "./imageUpload";
+import { ImageUpload } from "./ImageUpload";
 
 const List = [
   {

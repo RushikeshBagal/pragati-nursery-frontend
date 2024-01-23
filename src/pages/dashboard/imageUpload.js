@@ -37,7 +37,7 @@ export const ImageUpload = () => {
           id="frame"
           className="after-upload-image"
           src={image}
-          alt="product-image"
+          alt="product"
         />
       )}
       {!isUploaded ? (

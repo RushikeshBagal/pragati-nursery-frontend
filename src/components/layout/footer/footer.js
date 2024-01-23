@@ -4,12 +4,12 @@ import { AppIcon } from "../../../constants/AppIcon";
 
 const Footer = () => {
   return (
-    <Box>
+    <Box sx={{backgroundColor: "primary.background"}}>
       <Box>
         <Grid
           container
           spacing={2}
-          sx={{ color: "primary.white", paddingX: 5, paddingY: 10 }}
+          sx={{ color: "primary.main", paddingX: 5, paddingY: 10 }}
         >
           <Grid item xs={12} md={6} lg={4}>
             <Typography variant="footerHeading">Logo</Typography>
@@ -22,7 +22,7 @@ const Footer = () => {
               sx={{ p: 0, mr: 1 }}
             >
               <AppIcon
-                sx={{ color: "primary.white" }}
+                sx={{ color: "primary.main" }}
                 name="FacebookOutlined"
               />
             </IconButton>
@@ -31,57 +31,55 @@ const Footer = () => {
               target="_blank"
               sx={{ p: 0, mr: 1 }}
             >
-              <AppIcon sx={{ color: "primary.white" }} name="Instagram" />
+              <AppIcon sx={{ color: "primary.main" }} name="Instagram" />
             </IconButton>
             <IconButton
               href="https://youtube.com"
               target="_blank"
               sx={{ p: 0, mr: 1 }}
             >
-              <AppIcon sx={{ color: "primary.white" }} name="YouTube" />
+              <AppIcon sx={{ color: "primary.main" }} name="YouTube" />
             </IconButton>
           </Grid>
-          {/* <Grid item xs={12} md={6} lg={2}>
-            <Typography mb={2} variant="footerHeading">
-              Services
-            </Typography>
-            <Typography>Hair Care</Typography>
-            <Typography>Hair Styling</Typography>
-            <Typography>Hair Cut</Typography>
-            <Typography>Hair Coloring</Typography>
-            <Typography>Straightening</Typography>
-          </Grid> */}
           <Grid item xs={12} md={6} lg={3}>
             <Typography mb={2} variant="footerHeading">
               Links
             </Typography>
             <Typography>
-              <Link color={"primary.white"} href="" underline="hover">
+              <Link color={"primary.main"} href="" underline="hover">
                 Why ChopsCut?
               </Link>
             </Typography>
             <Typography>
-              <Link color={"primary.white"} href="" underline="hover">
+              <Link
+                color={"primary.main"}
+                href="/privacy-policy"
+                underline="hover"
+              >
                 Privacy Policy
               </Link>
             </Typography>
             <Typography>
-              <Link color={"primary.white"} href="" underline="hover">
+              <Link
+                color={"primary.main"}
+                href="/terms-condition"
+                underline="hover"
+              >
                 Terms & Condition
               </Link>
             </Typography>
             <Typography>
-              <Link color={"primary.white"} href="" underline="hover">
+              <Link color={"primary.main"} href="" underline="hover">
                 About
               </Link>
             </Typography>
-            <Typography>
-              <Link color={"primary.white"} href="" underline="hover">
+            {/* <Typography>
+              <Link color={"primary.main"} href="" underline="hover">
                 Store Locator
               </Link>
-            </Typography>
+            </Typography> */}
             <Typography>
-              <Link color={"primary.white"} href="" underline="hover">
+              <Link color={"primary.main"} href="" underline="hover">
                 Franchisee
               </Link>
             </Typography>
@@ -94,13 +92,13 @@ const Footer = () => {
               Kuldharan Road, Karjat, Tal: Karjat, Dist: Ahmednagar, MH, 414402
             </Typography>
             <Typography>
-              <Link color={"primary.white"} href="mailto:contact@chopscut.com">
+              <Link color={"primary.main"} href="mailto:contact@chopscut.com">
                 contact@chopscut.com
               </Link>
             </Typography>
             <Typography>
               call:&nbsp;
-              <Link color={"primary.white"} href="tel:+918485841010">
+              <Link color={"primary.main"} href="tel:+918485841010">
                 +91 8485841010
               </Link>
             </Typography>
@@ -113,7 +111,7 @@ const Footer = () => {
               sx={{ p: 0, mr: 1 }}
             >
               <AppIcon
-                sx={{ color: "primary.white" }}
+                sx={{ color: "primary.main" }}
                 name="FacebookOutlined"
               />
             </IconButton>
@@ -122,14 +120,14 @@ const Footer = () => {
               target="_blank"
               sx={{ p: 0, mr: 1 }}
             >
-              <AppIcon sx={{ color: "primary.white" }} name="Instagram" />
+              <AppIcon sx={{ color: "primary.main" }} name="Instagram" />
             </IconButton>
             <IconButton
               href="https://youtube.com"
               target="_blank"
               sx={{ p: 0, mr: 1 }}
             >
-              <AppIcon sx={{ color: "primary.white" }} name="YouTube" />
+              <AppIcon sx={{ color: "primary.main" }} name="YouTube" />
             </IconButton> */}
           </Grid>
         </Grid>
@@ -137,18 +135,17 @@ const Footer = () => {
       <Box
         p={2}
         sx={{
-          backgroundColor: "primary.main",
-          color: "primary.white",
+          backgroundColor: "primary.dark",
+          color: "primary.light",
           textAlign: "center",
         }}
       >
         <Typography variant="copyrightText">
-          &copy; 2024 Copyright - ChopsCut - All
-          Rights Reserved.&nbsp;
+          &copy; 2024 Copyright - ChopsCut - All Rights Reserved.&nbsp;
         </Typography>
         <Typography variant="copyrightText">
           Powered by&nbsp;
-          <Link color={"primary.white"} href="https://instagram.com">
+          <Link color={"primary.light"} href="https://instagram.com">
             our company name
           </Link>
         </Typography>
