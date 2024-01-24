@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Box,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -10,37 +11,38 @@ import {
   Typography,
 } from "@mui/material";
 import { SearchBox } from "../../components/common/SearchBox";
-
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import { InOutInventory } from "./InOutInventory";
 const List = [
   {
     name: "Mango Tree",
     quantity: "200",
-    price:"30"
+    price: "30",
   },
   {
     name: "Pink guava (Peru) Tree",
     quantity: "500",
-    price:"18"
+    price: "18",
   },
   {
     name: "Custard apple Tree",
     quantity: "50",
-    price:"9"
+    price: "9",
   },
   {
     name: "Coconut Tree",
     quantity: "100",
-    price:"10"
+    price: "10",
   },
   {
     name: "Kuber Tree",
     quantity: "15",
-    price:"9"
+    price: "9",
   },
   {
     name: "Bamboo Tree",
     quantity: "900",
-    price:"25"
+    price: "25",
   },
 ];
 
@@ -69,6 +71,9 @@ export const InventoryManagement = () => {
                 <TableCell>
                   <Typography>Price (&#8377;)</Typography>
                 </TableCell>
+                <TableCell>
+                  <Typography>Action</Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -82,6 +87,11 @@ export const InventoryManagement = () => {
                   </TableCell>
                   <TableCell>
                     <Typography> &#8377; {list.price}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={()=> {<InOutInventory/>}}>
+                      <ModeEditOutlineOutlinedIcon />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

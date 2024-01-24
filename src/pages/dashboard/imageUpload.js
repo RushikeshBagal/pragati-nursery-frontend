@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
-import "./imageUpload.css";
+import "./ImageUpload.css";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 
 export const ImageUpload = () => {

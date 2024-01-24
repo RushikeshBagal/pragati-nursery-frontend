@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import PageNotFound from "../pages/PageNotFound";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
-import Home from "../pages/home/Home";
+import Home from "../pages/Home/Home";
 import DashboardHome from "../pages/Dashboard/Home";
 import DashboardLogin from "../pages/Dashboard/authentication/Login";
 import DashboardForgotPassword from "../pages/Dashboard/authentication/ForgotPassword";
