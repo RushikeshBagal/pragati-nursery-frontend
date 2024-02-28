@@ -21,6 +21,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ImageUpload } from "./ImageUpload";
+import { CustomAutocomplete } from "../../components/common/CustomAutocomplete";
 
 const List = [
   {
@@ -60,6 +61,7 @@ const categoryList = [
 
 export const AddProduct = () => {
   const [addProduct, setAddProduct] = useState(false);
+  const [selectedValue, setSelectedValue] = useState();
   return (
     <Box
       sx={{
@@ -67,55 +69,75 @@ export const AddProduct = () => {
         justifyContent: "center",
         minHeight: "100vh",
         pt: 19,
+        mb: 10,
       }}
     >
       <Box sx={{ width: "644px" }}>
         {!addProduct ? (
           <>
+            <Box>
+              <Typography variant="topHeading">Add New Product</Typography>
+            </Box>
+            <Box mt={2} mb={4}>
+              <Typography variant="topSubHeading">
+                Add new products from here.
+              </Typography>
+            </Box>
             <Box
               sx={{
-                margin: "16px",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
+                border: "1px solid #DDE1E6",
+                borderRadius: 2,
+                // pt: 3,
+                backgroundColor: "ffffff",
               }}
             >
-              <Button variant="contained" onClick={() => setAddProduct(true)}>
-                Add Product
-              </Button>
-            </Box>
-            <SearchBox />
-            <TableContainer sx={{ mt: 3 }}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <Typography>Product</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography>Action</Typography>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {List.map((list) => (
+              <Box
+                sx={{
+                  margin: "16px",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Button variant="contained" onClick={() => setAddProduct(true)}>
+                  Add Product
+                </Button>
+              </Box>
+              <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
+                <SearchBox />
+              </Box>
+              <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
+                <Table>
+                  <TableHead sx={{ backgroundColor: "#EBF0F4", height: 8 }}>
                     <TableRow>
                       <TableCell>
-                        <Typography>{list.name}</Typography>
+                        <Typography>Product</Typography>
                       </TableCell>
                       <TableCell>
-                        <IconButton>
-                          <EditNoteOutlinedIcon />
-                        </IconButton>
-                        <IconButton>
-                          <DeleteOutlinedIcon />
-                        </IconButton>
+                        <Typography>Action</Typography>
                       </TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {List.map((list) => (
+                      <TableRow>
+                        <TableCell>
+                          <Typography>{list.name}</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <IconButton>
+                            <EditNoteOutlinedIcon />
+                          </IconButton>
+                          <IconButton>
+                            <DeleteOutlinedIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
           </>
         ) : (
           <>
@@ -136,7 +158,7 @@ export const AddProduct = () => {
                 rows={4}
                 sx={{ pb: 2 }}
               />
-              <Autocomplete
+              {/* <Autocomplete
                 disablePortal
                 id="combo-box-demo"
                 options={categoryList}
@@ -145,8 +167,14 @@ export const AddProduct = () => {
                 renderInput={(params) => (
                   <TextField {...params} label="Select Category" />
                 )}
+              /> */}
+              <CustomAutocomplete
+                label="Select Category"
+                options={categoryList}
+                selectedValue={selectedValue}
+                setSelectedValue={setSelectedValue}
               />
-              <FormControl fullWidth sx={{ pb: 2 }}>
+              <FormControl fullWidth sx={{ pb: 2, mt: 2 }}>
                 <InputLabel htmlFor="outlined-adornment-amount">
                   Amount
                 </InputLabel>
@@ -167,7 +195,7 @@ export const AddProduct = () => {
                   height: "35vh",
                 }}
               >
-                <ImageUpload/>
+                <ImageUpload />
               </Box>
             </Box>
             <Box
@@ -175,9 +203,12 @@ export const AddProduct = () => {
                 margin: "16px",
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "flex-end",
+                justifyContent: "space-between",
               }}
             >
+              <Button variant="outlined" onClick={() => setAddProduct(false)}>
+                Back
+              </Button>
               <Button variant="contained" onClick={() => setAddProduct(false)}>
                 Submit
               </Button>

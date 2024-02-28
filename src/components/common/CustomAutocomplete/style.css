@@ -1,0 +1,12 @@
+.MuiAutocomplete-listbox {
+    margin: 20px !important;
+    .custom-dropdown:not(:last-child) {
+        .MuiAutocomplete-option {
+            padding: 8px !important;
+            margin-top: 8px !important;
+            margin-left: 24px !important;
+            margin-right: 24px !important;
+            border-bottom: 0.5px solid #b4c5d7 !important;
+        }
+    }
+}

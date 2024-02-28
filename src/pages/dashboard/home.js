@@ -2,10 +2,12 @@ import { AppBar, Box, Grid } from "@mui/material";
 import SideBar from "./Layout/SideBar";
 import Header from "./Layout/Header";
 import { useState } from "react";
-import { InventoryManagement } from "./InventoryManagement";
+import { InventoryManagement } from "./InventoryManagement/InventoryManagement";
 import { AddProduct } from "./AddProduct";
 import { AddCategory } from "./AddCategory";
 import { PriceUpdate } from "./PriceUpdate";
+import { SalesChart } from "./SalesChart";
+import { Orders } from "./Orders";
 
 const drawerWidth = 270;
 
@@ -43,7 +45,9 @@ const DashboardHome = ({ children }) => {
           ) : selectedTab === "Price Update" ? (
             <PriceUpdate />
           ) : selectedTab === "Sales Chart" ? (
-            <></>
+            <SalesChart/>
+          ) : selectedTab === "Orders" ? (
+            <Orders/>
           ) : (
             <></>
           )}

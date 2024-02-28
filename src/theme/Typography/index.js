@@ -45,5 +45,17 @@ export const CustomTypography = {
   heading: {
     fontSize: theme.typography.pxToRem(50),
     fontWeight: 600
+  },
+  topHeading: {
+    fontSize: theme.typography.pxToRem(40),
+    fontWeight: 700,
+    lineHeight: "45px",
+    letterSpacing: "0.8px"
+  },
+  topSubHeading: {
+    fontSize: theme.typography.pxToRem(20),
+    fontWeight: 700,
+    lineHeight: "24px",
+    letterSpacing: "0.24px"
   }
 };

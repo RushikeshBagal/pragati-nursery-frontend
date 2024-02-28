@@ -32,6 +32,10 @@ const options = [
     tabName: "Sales Chart",
     icon: "PieChart",
   },
+  {
+    tabName: "Orders",
+    icon: "ShoppingCartCheckoutOutlined",
+  },
 ];
 
 const SideBar = (props) => {

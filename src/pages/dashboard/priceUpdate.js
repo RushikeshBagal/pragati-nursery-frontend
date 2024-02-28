@@ -60,53 +60,73 @@ export const PriceUpdate = () => {
         justifyContent: "center",
         minHeight: "100vh",
         pt: 19,
+        mb: 10
       }}
     >
       <Box sx={{ width: "644px" }}>
-        <SearchBox />
-        <TableContainer sx={{ mt: 3 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <Typography>Product</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>In Stock</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>Price (&#8377;)</Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {List.map((list) => (
+        <Box>
+          <Typography variant="topHeading">Price Update</Typography>
+        </Box>
+        <Box mt={2} mb={4}>
+          <Typography variant="topSubHeading">
+            Edit product pricing from here.
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            border: "1px solid #DDE1E6",
+            borderRadius: 2,
+            // pt: 3,
+            backgroundColor: "ffffff",
+          }}
+        >
+          <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
+            <SearchBox />
+          </Box>
+          <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
+            <Table>
+              <TableHead sx={{ backgroundColor: "#EBF0F4", height: 8 }}>
                 <TableRow>
-                  <TableCell onClick={() => console.log("clicked")}>
-                    <Typography>{list.name}</Typography>
+                  <TableCell>
+                    <Typography>Product</Typography>
                   </TableCell>
                   <TableCell>
-                    {/* <Typography>{list.quantity}</Typography> */}
-                    <Switch />
+                    <Typography>In Stock</Typography>
                   </TableCell>
                   <TableCell>
-                    {/* <Typography> &#8377; {list.price}</Typography> */}
-                    <TextField
-                      id="standard-number"
-                      //   label="Number"
-                      type="number"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="standard"
-                      sx={{ width: "50px" }}
-                    />
+                    <Typography>Price (&#8377;)</Typography>
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {List.map((list) => (
+                  <TableRow>
+                    <TableCell onClick={() => console.log("clicked")}>
+                      <Typography>{list.name}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      {/* <Typography>{list.quantity}</Typography> */}
+                      <Switch />
+                    </TableCell>
+                    <TableCell>
+                      {/* <Typography> &#8377; {list.price}</Typography> */}
+                      <TextField
+                        id="standard-number"
+                        //   label="Number"
+                        type="number"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="standard"
+                        sx={{ width: "50px" }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Box>
     </Box>
   );

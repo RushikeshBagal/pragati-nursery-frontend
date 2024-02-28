@@ -4,7 +4,7 @@ import PageNotFound from "../pages/PageNotFound";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
 import Home from "../pages/Home/Home";
-import DashboardHome from "../pages/Dashboard/Home";
+import DashboardHome from "../pages/Dashboard/Home"
 import DashboardLogin from "../pages/Dashboard/authentication/Login";
 import DashboardForgotPassword from "../pages/Dashboard/authentication/ForgotPassword";
 import DashboardResetPassword from "../pages/Dashboard/authentication/ResetPassword";

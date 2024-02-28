@@ -14,6 +14,7 @@ import {
   Inventory,
   PriceChange,
   PieChart,
+  ShoppingCartCheckoutOutlined
 } from "@mui/icons-material";
 
 export const AppIcon = (props) => {
@@ -31,6 +32,7 @@ export const AppIcon = (props) => {
     Inventory: <Inventory {...props} />,
     PriceChange: <PriceChange {...props} />,
     PieChart: <PieChart {...props} />,
+    ShoppingCartCheckoutOutlined: <ShoppingCartCheckoutOutlined {...props} />,
   };
   return Icons[props.name];
 };
