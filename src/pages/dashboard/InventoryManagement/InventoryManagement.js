@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Autocomplete,
   Box,
@@ -15,8 +15,9 @@ import {
 import { SearchBox } from "../../../components/common/SearchBox";
 import { CustomTableRow } from "./CustomTableRow";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import { InOutInventory } from "../InOutInventory";
-import { CustomAutocomplete } from "../../../components/common/CustomAutocomplete";
+import { InOutInventory } from "./InOutInventory";
+import { CategoryAutocomplete } from "../../../components/common/CustomAutocomplete/CategoryAutocomplete";
+import { supabase } from "../../../utils/supabase";
 const List = [
   {
     name: "Mango Tree",
@@ -49,23 +50,9 @@ const List = [
     price: "25",
   },
 ];
-
-const categoryList = [
-  {
-    label: "Plants",
-  },
-  {
-    label: "Fertilizers",
-  },
-  {
-    label: "Tools",
-  },
-  {
-    label: "Service",
-  },
-];
 export const InventoryManagement = () => {
   const [selectedValue, setSelectedValue] = useState();
+
   return (
     <Box
       sx={{
@@ -94,19 +81,7 @@ export const InventoryManagement = () => {
             mb: 5,
           }}
         >
-          {/* <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={categoryList}
-            // sx={{ pb: 2 }}
-            fullWidth
-            renderInput={(params) => (
-              <TextField {...params} label="Select Category" />
-            )}
-          /> */}
-          <CustomAutocomplete
-            label="Select Category"
-            options={categoryList}
+          <CategoryAutocomplete
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
           />

@@ -69,7 +69,7 @@ const DashboardForgotPassword = () => {
               }}
             >
               <Link
-                href="#"
+                href="/dashboard"
                 underline="hover"
                 //   sx={{ color: "#4169E1", display: "block" }}
               >

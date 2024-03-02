@@ -17,16 +17,12 @@ const options = [
     icon: "Inventory",
   },
   {
-    tabName: "Add New Product",
+    tabName: "Product Management",
     icon: "AddCircleOutline",
   },
   {
-    tabName: "Add New Category",
+    tabName: "Category Management",
     icon: "LibraryAdd",
-  },
-  {
-    tabName: "Price Update",
-    icon: "PriceChange",
   },
   {
     tabName: "Sales Chart",

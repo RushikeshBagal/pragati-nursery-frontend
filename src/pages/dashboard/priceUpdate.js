@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Switch,
@@ -51,8 +51,23 @@ const List = [
     stock: "true",
   },
 ];
+const categoryList = [
+  {
+    label: "Plants",
+  },
+  {
+    label: "Fertilizers",
+  },
+  {
+    label: "Tools",
+  },
+  {
+    label: "Service",
+  },
+];
 
 export const PriceUpdate = () => {
+  const [selectedValue, setSelectedValue] = useState();
   return (
     <Box
       sx={{
@@ -60,7 +75,7 @@ export const PriceUpdate = () => {
         justifyContent: "center",
         minHeight: "100vh",
         pt: 19,
-        mb: 10
+        mb: 10,
       }}
     >
       <Box sx={{ width: "644px" }}>
@@ -76,57 +91,85 @@ export const PriceUpdate = () => {
           sx={{
             border: "1px solid #DDE1E6",
             borderRadius: 2,
-            // pt: 3,
+            p: 3,
             backgroundColor: "ffffff",
+            mb: 5,
           }}
         >
-          <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
-            <SearchBox />
-          </Box>
-          <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
-            <Table>
-              <TableHead sx={{ backgroundColor: "#EBF0F4", height: 8 }}>
-                <TableRow>
-                  <TableCell>
-                    <Typography>Product</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>In Stock</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>Price (&#8377;)</Typography>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {List.map((list) => (
+          {/* <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={categoryList}
+            // sx={{ pb: 2 }}
+            fullWidth
+            renderInput={(params) => (
+              <TextField {...params} label="Select Category" />
+            )}
+          /> */}
+          {/* <CustomAutocomplete
+            label="Select Category"
+            options={categoryList}
+            selectedValue={selectedValue}
+            setSelectedValue={setSelectedValue}
+          /> */}
+        </Box>
+        {selectedValue && (
+          <Box
+            sx={{
+              border: "1px solid #DDE1E6",
+              borderRadius: 2,
+              // pt: 3,
+              backgroundColor: "ffffff",
+            }}
+          >
+            <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
+              <SearchBox />
+            </Box>
+            <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
+              <Table>
+                <TableHead sx={{ backgroundColor: "#EBF0F4", height: 8 }}>
                   <TableRow>
-                    <TableCell onClick={() => console.log("clicked")}>
-                      <Typography>{list.name}</Typography>
+                    <TableCell>
+                      <Typography>Product</Typography>
                     </TableCell>
                     <TableCell>
-                      {/* <Typography>{list.quantity}</Typography> */}
-                      <Switch />
+                      <Typography>In Stock</Typography>
                     </TableCell>
                     <TableCell>
-                      {/* <Typography> &#8377; {list.price}</Typography> */}
-                      <TextField
-                        id="standard-number"
-                        //   label="Number"
-                        type="number"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="standard"
-                        sx={{ width: "50px" }}
-                      />
+                      <Typography>Price (&#8377;)</Typography>
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
+                </TableHead>
+                <TableBody>
+                  {List.map((list) => (
+                    <TableRow>
+                      <TableCell onClick={() => console.log("clicked")}>
+                        <Typography>{list.name}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        {/* <Typography>{list.quantity}</Typography> */}
+                        <Switch />
+                      </TableCell>
+                      <TableCell>
+                        {/* <Typography> &#8377; {list.price}</Typography> */}
+                        <TextField
+                          id="standard-number"
+                          //   label="Number"
+                          type="number"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          variant="standard"
+                          sx={{ width: "50px" }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        )}
       </Box>
     </Box>
   );

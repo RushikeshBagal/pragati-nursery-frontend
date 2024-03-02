@@ -1,13 +1,13 @@
 import { AppBar, Box, Grid } from "@mui/material";
-import SideBar from "./Layout/SideBar";
-import Header from "./Layout/Header";
+import SideBar from "../Layout/SideBar";
+import Header from "../Layout/Header";
 import { useState } from "react";
-import { InventoryManagement } from "./InventoryManagement/InventoryManagement";
-import { AddProduct } from "./AddProduct";
-import { AddCategory } from "./AddCategory";
-import { PriceUpdate } from "./PriceUpdate";
-import { SalesChart } from "./SalesChart";
-import { Orders } from "./Orders";
+import { InventoryManagement } from "../InventoryManagement/InventoryManagement";
+import { ManageProduct } from "../productManagement/ManageProduct";
+import { ManageCategory } from "../categoryManagement/ManageCategory";
+import { PriceUpdate } from "../PriceUpdate";
+import { SalesChart } from "../salesChart/SalesChart";
+import { Orders } from "../orders/Orders";
 
 const drawerWidth = 270;
 
@@ -38,12 +38,10 @@ const DashboardHome = ({ children }) => {
         <Grid item sx={{ width: `calc(100% - ${drawerWidth}px)` }}>
           {selectedTab === "Inventory Management" ? (
             <InventoryManagement />
-          ) : selectedTab === "Add New Product" ? (
-            <AddProduct />
-          ) : selectedTab === "Add New Category" ? (
-            <AddCategory />
-          ) : selectedTab === "Price Update" ? (
-            <PriceUpdate />
+          ) : selectedTab === "Product Management" ? (
+            <ManageProduct />
+          ) : selectedTab === "Category Management" ? (
+            <ManageCategory />
           ) : selectedTab === "Sales Chart" ? (
             <SalesChart/>
           ) : selectedTab === "Orders" ? (

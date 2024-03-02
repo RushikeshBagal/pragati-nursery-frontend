@@ -18,15 +18,39 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { supabase } from "../../../utils/supabase";
+import { useNavigate } from "react-router-dom";
 
-const DashboardLogin = () => {
+const DashboardLogin = ({setToken}) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password
+      });
+      if (error) throw error;
+      // console.log(data)
+      setToken(data)
+      navigate("/dashboard-home");
+    } catch (error) {
+      alert(error);
+    }
+  }
+  console.log(formData);
   return (
     <Box
       sx={{
@@ -61,6 +85,7 @@ const DashboardLogin = () => {
                 <Typography>Username</Typography>
               </InputLabel>
               <Input
+              onChange={(e) => setFormData({...formData, email: e.target.value })}
                 sx={{ marginBottom: "8px" }}
                 startAdornment={
                   <InputAdornment position="start">
@@ -74,6 +99,7 @@ const DashboardLogin = () => {
                 <Typography>Password</Typography>
               </InputLabel>
               <Input
+              onChange={(e) => setFormData({...formData, password: e.target.value })}
                 sx={{ marginBottom: "8px" }}
                 type={showPassword ? "text" : "password"}
                 startAdornment={
@@ -111,13 +137,14 @@ const DashboardLogin = () => {
                 />
               </FormGroup>
               <Link
-                href="#"
+                href="/dashboard-forgotpassword"
                 underline="hover"
               >
                 Forgot Password ?
               </Link>
             </Box>
             <Button
+            onClick={handleSubmit}
               disabled={disabled}
               variant="contained"
               fullWidth

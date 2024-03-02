@@ -1,18 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import PageNotFound from "../pages/PageNotFound";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
 import Home from "../pages/Home/Home";
-import DashboardHome from "../pages/Dashboard/Home"
+import DashboardHome from "../pages/Dashboard/dashboardHome/Home"
 import DashboardLogin from "../pages/Dashboard/authentication/Login";
 import DashboardForgotPassword from "../pages/Dashboard/authentication/ForgotPassword";
 import DashboardResetPassword from "../pages/Dashboard/authentication/ResetPassword";
-import { InOutInventory } from "../pages/Dashboard/InOutInventory";
+import { InOutInventory } from "../pages/Dashboard/InventoryManagement/InOutInventory";
 
 export const RouterComponent = ({ setShowFooter }) => {
   const location = useLocation();
   const { pathname } = location;
+
+  const [token, setToken] = useState(false);
+
+  if(token){
+    sessionStorage.setItem("token", JSON.stringify(token))
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      let data = JSON.parse(sessionStorage.getItem("token"))
+      setToken(data)
+    }
+  },[])
 
   useEffect(() => {
     if (pathname.includes("dashboard")) {
@@ -23,8 +36,12 @@ export const RouterComponent = ({ setShowFooter }) => {
     <Routes>
       <Route path="/" element={<Navigate to="home" />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/dashboard" element={<DashboardHome />} />
-      <Route path="/dashboard-login" element={<DashboardLogin />} />
+      <Route path="/dashboard" element={<DashboardLogin setToken={setToken} />} />
+      {token ? 
+      <Route path="/dashboard-home" element={<DashboardHome />} />
+      : ""  
+    }
+      {/* // <Route path="/dashboard-home" element={<DashboardHome />} /> */}
       <Route
         path="/dashboard-forgotpassword"
         element={<DashboardForgotPassword />}
