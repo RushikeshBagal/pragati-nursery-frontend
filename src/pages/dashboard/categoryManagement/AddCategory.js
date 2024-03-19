@@ -43,7 +43,7 @@ export const AddCategory = (props) => {
           label="Category Name"
           variant="outlined"
           fullWidth
-          name="name"
+          name="category_name"
           onChange={handleChange}
         />
       </Box>

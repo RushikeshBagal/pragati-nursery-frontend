@@ -3,10 +3,10 @@ import { Box, Button } from "@mui/material";
 import "./ImageUpload.css";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 
-export const ImageUpload = () => {
+export const ImageUpload = ({setImageData, imageData}) => {
   const [image, setImage] = useState({});
   const [isUploaded, setIsUploaded] = useState(false);
-  const [imageData, setImageData] = useState({});
+  // const [imageData, setImageData] = useState({});
   const inputRef = React.useRef(null);
   const acceptedFileType = "image/jpeg, image/jpg, image/png";
   const handleDocSelect = (event) => {
@@ -18,6 +18,7 @@ export const ImageUpload = () => {
   const onUploadButton = () => {
     inputRef.current.click();
   };
+  // console.log(imageData);
   return (
     <Box>
       <input

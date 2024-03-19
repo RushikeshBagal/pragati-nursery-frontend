@@ -16,6 +16,7 @@ import { CategoryAutocomplete } from "../../../components/common/CustomAutocompl
 import { supabase } from "../../../utils/supabase";
 import { AddProduct } from "./AddProduct";
 import { EditProduct } from "./EditProduct";
+import { CustomSuccessSnackBar } from "../../../components/common/SnackBar/success";
 
 export const ManageProduct = () => {
   const [addProduct, setAddProduct] = useState(false);
@@ -25,6 +26,7 @@ export const ManageProduct = () => {
   const [selectedValueEditProduct, setSelectedValueEditProduct] =
     useState(selectedValue);
   const [productList, setProductList] = useState();
+  const [successOpen, setSuccessOpen] = useState(true);
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -49,6 +51,8 @@ export const ManageProduct = () => {
     }
     if (data) {
       // console.log(data);
+     const imageResponseData = data["image"]
+      // console.log({imageResponseData})
       setProductList(data);
     }
   }
@@ -68,6 +72,9 @@ export const ManageProduct = () => {
   useEffect(() => {
     displayProduct.category_name = selectedValueEditProduct?.category_name;
   }, [selectedValueEditProduct]);
+
+  // console.log("Product object", product)
+  // console.table(productList);
 
   return (
     <Box
@@ -169,27 +176,29 @@ export const ManageProduct = () => {
         )}
         {/* Add product section */}
         {addProduct && !editProduct && (
-            <AddProduct
-              selectedValueAddProduct={selectedValueAddProduct}
-              setSelectedValueAddProduct={setSelectedValueAddProduct}
-              setAddProduct={setAddProduct}
-              product={product}
-              setProduct={setProduct}
-              fetchProductList={fetchProductList}
-            />
+          <AddProduct
+            selectedValueAddProduct={selectedValueAddProduct}
+            setSelectedValueAddProduct={setSelectedValueAddProduct}
+            setAddProduct={setAddProduct}
+            product={product}
+            setProduct={setProduct}
+            fetchProductList={fetchProductList}
+            setSuccessOpen={setSuccessOpen}
+          />
         )}
         {/* Edit Product Section */}
         {!addProduct && editProduct && (
-            <EditProduct
-              selectedValueEditProduct={selectedValueEditProduct}
-              setSelectedValueEditProduct={setSelectedValueEditProduct}
-              displayProduct={displayProduct}
-              setDisplayProduct={setDisplayProduct}
-              fetchProductList={fetchProductList}
-              setEditProduct={setEditProduct}
-            />
+          <EditProduct
+            selectedValueEditProduct={selectedValueEditProduct}
+            setSelectedValueEditProduct={setSelectedValueEditProduct}
+            displayProduct={displayProduct}
+            setDisplayProduct={setDisplayProduct}
+            fetchProductList={fetchProductList}
+            setEditProduct={setEditProduct}
+          />
         )}
       </Box>
+      {/* <CustomSuccessSnackBar open={successOpen} setOpen={setSuccessOpen} message="Product added Successfully!" /> */}
     </Box>
   );
 };

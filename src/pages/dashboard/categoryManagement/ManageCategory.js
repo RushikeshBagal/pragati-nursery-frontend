@@ -19,28 +19,13 @@ import { AddCategory } from "./AddCategory";
 import { EditCategory } from "./EditCategory";
 import { supabase } from "../../../utils/supabase";
 
-const List = [
-  {
-    name: "Plants",
-  },
-  {
-    name: "Fertilizers",
-  },
-  {
-    name: "Tools",
-  },
-  {
-    name: "Service",
-  },
-];
-
 export const ManageCategory = () => {
   const [addCategory, setAddCategory] = useState(false);
   const [editCategory, setEditCategory] = useState(false);
   const [categoryList, setCategoryList] = useState();
   const [checked, setChecked] = useState();
   const [category, setCategory] = useState({
-    name: "",
+    category_name: "",
   });
   const [displayCategory, setDisplayCategory] = useState({
     id: "",
@@ -87,6 +72,8 @@ export const ManageCategory = () => {
       });
     }
   }
+
+  // console.log(displayCategory);
 
   const onClickEdit = (editCategoryId) => {
     displayCategoryFun(editCategoryId);
@@ -167,7 +154,7 @@ export const ManageCategory = () => {
                         <TableCell>
                           <IconButton
                             onClick={() => {
-                              onClickEdit(list?.category_id);
+                              onClickEdit(list.category_id);
                             }}
                           >
                             <EditNoteOutlinedIcon />

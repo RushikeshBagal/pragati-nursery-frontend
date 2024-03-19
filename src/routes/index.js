@@ -9,6 +9,7 @@ import DashboardLogin from "../pages/Dashboard/authentication/Login";
 import DashboardForgotPassword from "../pages/Dashboard/authentication/ForgotPassword";
 import DashboardResetPassword from "../pages/Dashboard/authentication/ResetPassword";
 import { InOutInventory } from "../pages/Dashboard/InventoryManagement/InOutInventory";
+import { Profile } from "../pages/Profile/Profile";
 
 export const RouterComponent = ({ setShowFooter }) => {
   const location = useLocation();
@@ -53,6 +54,7 @@ export const RouterComponent = ({ setShowFooter }) => {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-condition" element={<TermsCondition />} />
       <Route path="/inventory-in-out" element={<InOutInventory />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

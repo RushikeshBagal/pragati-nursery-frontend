@@ -1,0 +1,87 @@
+.products {
+    border-top: 1px solid #ddd;
+  }
+  
+  .products > li {
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .row {
+    position: relative !important;
+    overflow: auto !important;
+    width: 100% !important;
+  }
+  
+  .col, .quantity, .remove {
+    float: left !important;
+  }
+  
+  .col.left {
+    width: 70%!important;
+  }
+  
+  .col.right {
+    width: 30% !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: calc(50% - 30px) !important;
+  }
+  
+  .detail {
+    padding: 0 0.5rem !important;
+    line-height: 2.2rem !important;
+  }
+  
+  .detail .name {
+    font-size: 1.2rem !important;
+  }
+  
+  .detail .description {
+    color: #7d7d7d !important;
+    font-size: 1rem !important;
+  }
+  
+  .detail .price {
+    font-size: 1.5rem !important;
+  }
+  
+  .quantity, .remove {
+    width: 50% !important;
+    text-align: center !important;
+  }
+  
+  .remove svg {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .quantity > input {
+    display: inline-block !important;
+    width: 60px !important;
+    height: 60px !important;
+    position: relative !important;
+    left: calc(50% - 30px) !important;
+    background: #fff !important;
+    border: 2px solid #ddd !important;
+    color: #7f7f7f !important;
+    text-align: center !important;
+    font: 600 1.5rem Helvetica, Arial, sans-serif !important;
+  }
+  
+  .quantity > input:hover, .quantity > input:focus {
+    border-color: #f58551 !important;
+  }
+  
+  .close {
+    fill: #7d7d7d !important;
+    transition: color 150ms linear,
+      background-color 150ms linear,
+      fill 150ms linear,
+      150ms opacity linear !important;
+    cursor: pointer !important;
+  }
+  
+  .close:hover {
+    fill: #f58551 !important;
+  }

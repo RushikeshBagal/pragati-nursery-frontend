@@ -19,6 +19,7 @@ export const ExpandableTableRow = (props) => {
   const { list, fetchProductList, setEditProduct, setDisplayProduct } = props;
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [imageURL, setImageURL] = useState();
 
   async function deleteProduct(productId) {
     const { data, error } = await supabase
@@ -57,6 +58,25 @@ export const ExpandableTableRow = (props) => {
     displayProductFun(editProductId);
     setEditProduct(true);
   };
+
+  // console.log(list.image);
+
+  const getDownloadURL = async () => {
+    if(list.image) {
+      // console.log(list.image.path)
+      const { data } = await supabase
+    .storage
+    .from('Pragati_Nursary')
+    .getPublicUrl(list.image.path)
+    setImageURL(data.publicUrl);
+    // console.log(data.publicUrl)
+    }
+     
+  }
+
+  useEffect(() => {
+    getDownloadURL();
+  },[]);
 
   return (
     <>
@@ -144,7 +164,9 @@ export const ExpandableTableRow = (props) => {
               <Box>
                 <Typography>Product Image</Typography>
               </Box>
-              <Box></Box>
+              <Box sx={{width:"200px", height:"200px"}}>
+                <img src={imageURL} alt="Product image"/>
+              </Box>
             </Box>
           </Collapse>
         </TableCell>

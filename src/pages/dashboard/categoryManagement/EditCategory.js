@@ -4,6 +4,7 @@ import { supabase } from "../../../utils/supabase";
 
 export const EditCategory = (props) => {
   const { displayCategory, setDisplayCategory, setAddCategory, fetchCategoryList } = props;
+  // console.log(displayCategory);
 
   async function editCategoryFun(categoryId) {
     const { data, error } = await supabase
@@ -20,7 +21,7 @@ export const EditCategory = (props) => {
       console.log(error);
     }
     if (data) {
-      console.log(data);
+      // console.log(data);
     }
   }
 
@@ -47,7 +48,7 @@ export const EditCategory = (props) => {
           label="Category Name"
           variant="outlined"
           fullWidth
-          name="name"
+          name="category_name"
           onChange={handleChangeEdit}
           defaultValue={displayCategory.category_name}
         />

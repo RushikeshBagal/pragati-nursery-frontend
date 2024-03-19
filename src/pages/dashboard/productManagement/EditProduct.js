@@ -41,7 +41,7 @@ export const EditProduct = (props) => {
       console.log(error);
     }
     if (data) {
-      console.log(data);
+      // console.log(data);
     }
   }
 

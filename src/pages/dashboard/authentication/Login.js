@@ -50,7 +50,7 @@ const DashboardLogin = ({setToken}) => {
       alert(error);
     }
   }
-  console.log(formData);
+  // console.log(formData);
   return (
     <Box
       sx={{

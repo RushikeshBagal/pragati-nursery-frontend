@@ -7,12 +7,14 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { CategoryAutocomplete } from "../../../components/common/CustomAutocomplete/CategoryAutocomplete";
 import { ImageUpload } from "./ImageUpload";
 import { supabase } from "../../../utils/supabase";
+const { v4 } = require("uuid");
 
 export const AddProduct = (props) => {
+  const [imageData, setImageData] = useState({});
   const {
     selectedValueAddProduct,
     setSelectedValueAddProduct,
@@ -20,25 +22,42 @@ export const AddProduct = (props) => {
     product,
     setProduct,
     fetchProductList,
+    setSuccessOpen,
   } = props;
 
   async function createProduct() {
-    const { data, error } = await supabase.from("products").insert({
-      product_name: product.name,
-      description: product.description,
-      category_name: product.category_name,
-      price: product.price,
-      image: product.image,
-    });
+    try {
+      const imageName = v4();
+      const { data: imageResponse, error: imageError } = await supabase.storage
+        .from("Pragati_Nursery")
+        .upload(`product_image/${imageName}`, imageData);
 
-    fetchProductList();
+      if (imageError) {
+        console.error("Error uploading image:", imageError);
+        throw imageError;
+      }
 
-    if (error) {
-      console.log(error);
-    }
-    if (data) {
-      // console.log(data);
-    }
+      // console.log(imageResponse);
+
+      const { data, error } = await supabase.from("products").insert({
+        product_name: product.name,
+        description: product.description,
+        category_name: product.category_name,
+        price: product.price,
+        image: imageResponse,
+      });
+
+      fetchProductList();
+
+      if (error) {
+        console.error("Product insert error", error);
+        throw error;
+      }
+      if (data) {
+        // console.log(data);
+        setSuccessOpen(true);
+      }
+    } catch (error) {}
   }
 
   const handleSubmit = () => {
@@ -104,7 +123,7 @@ export const AddProduct = (props) => {
             height: "35vh",
           }}
         >
-          <ImageUpload />
+          <ImageUpload imageData={imageData} setImageData={setImageData} />
         </Box>
       </Box>
       <Box
