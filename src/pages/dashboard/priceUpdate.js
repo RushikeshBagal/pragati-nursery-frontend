@@ -92,7 +92,7 @@ export const PriceUpdate = () => {
             border: "1px solid #DDE1E6",
             borderRadius: 2,
             p: 3,
-            backgroundColor: "ffffff",
+            backgroundColor: "#ffffff",
             mb: 5,
           }}
         >
@@ -119,7 +119,7 @@ export const PriceUpdate = () => {
               border: "1px solid #DDE1E6",
               borderRadius: 2,
               // pt: 3,
-              backgroundColor: "ffffff",
+              backgroundColor: "#ffffff",
             }}
           >
             <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>

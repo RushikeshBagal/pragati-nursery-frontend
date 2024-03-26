@@ -17,13 +17,11 @@ import Logout from "@mui/icons-material/Logout";
 import React, { useState } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { supabase } from "../../../utils/supabase";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
-// import { useNavigate } from "react-router-dom";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 const Header = ({ showIcons }) => {
   const [token, setToken] = useState(true);
-  // const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -35,7 +33,7 @@ const Header = ({ showIcons }) => {
 
   async function handleLogout() {
     handleClose();
-    // sessionStorage.removeItem("token")
+    sessionStorage.removeItem("token")
     const { error } = await supabase.auth.signOut();
     if (error) console.log(error);
     // navigate("/home");
@@ -145,9 +143,7 @@ const Header = ({ showIcons }) => {
                   size="large"
                   edge="end"
                   aria-label="account of current user"
-                  // aria-controls={menuId}
                   aria-haspopup="true"
-                  // onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
                   <Badge badgeContent={2} color="error">

@@ -5,7 +5,6 @@ import { useState } from "react";
 import { InventoryManagement } from "../InventoryManagement/InventoryManagement";
 import { ManageProduct } from "../productManagement/ManageProduct";
 import { ManageCategory } from "../categoryManagement/ManageCategory";
-import { PriceUpdate } from "../PriceUpdate";
 import { SalesChart } from "../salesChart/SalesChart";
 import { Orders } from "../orders/Orders";
 
@@ -13,12 +12,6 @@ const drawerWidth = 270;
 
 const DashboardHome = ({ children }) => {
   const [selectedTab, setSelectedTab] = useState("Inventory Management");
-
-  // const [auth, setAuth] = React.useState(true);
-
-  // const handleChange = (event) => {
-  //   setAuth(event.target.checked);
-  // };
   return (
     <Box mb={15}>
       <AppBar
@@ -35,7 +28,13 @@ const DashboardHome = ({ children }) => {
             setSelectedTab={setSelectedTab}
           />
         </Grid>
-        <Grid item sx={{ width: `calc(100% - ${drawerWidth}px)` }}>
+        <Grid
+          item
+          sx={{
+            width: `calc(100% - ${drawerWidth}px)`,
+            backgroundColor: "#f9f9f9",
+          }}
+        >
           {selectedTab === "Inventory Management" ? (
             <InventoryManagement />
           ) : selectedTab === "Product Management" ? (
@@ -43,9 +42,9 @@ const DashboardHome = ({ children }) => {
           ) : selectedTab === "Category Management" ? (
             <ManageCategory />
           ) : selectedTab === "Sales Chart" ? (
-            <SalesChart/>
+            <SalesChart />
           ) : selectedTab === "Orders" ? (
-            <Orders/>
+            <Orders />
           ) : (
             <></>
           )}

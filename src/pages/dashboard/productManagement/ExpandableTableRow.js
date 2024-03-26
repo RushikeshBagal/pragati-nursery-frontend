@@ -62,21 +62,19 @@ export const ExpandableTableRow = (props) => {
   // console.log(list.image);
 
   const getDownloadURL = async () => {
-    if(list.image) {
+    if (list.image) {
       // console.log(list.image.path)
-      const { data } = await supabase
-    .storage
-    .from('Pragati_Nursary')
-    .getPublicUrl(list.image.path)
-    setImageURL(data.publicUrl);
-    // console.log(data.publicUrl)
+      const { data } = await supabase.storage
+        .from("Pragati_Nursary")
+        .getPublicUrl(list.image.path);
+      setImageURL(data.publicUrl);
+      // console.log(data.publicUrl)
     }
-     
-  }
+  };
 
   useEffect(() => {
     getDownloadURL();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -84,32 +82,23 @@ export const ExpandableTableRow = (props) => {
         sx={
           open
             ? {
-                border: "1px solid #1353A1",
+                border: "1px solid #294B29",
                 borderBottom: 0,
                 marginBottom: 1,
                 "& > *": { borderBottom: "unset" },
-                "th, td": { borderTop: "2px solid #1353A1" },
+                "th, td": { borderTop: "2px solid #294B29" },
               }
             : { "th, td": { border: 0 } }
         }
       >
         <TableCell>
-          <Typography>{list?.product_name}</Typography>
+          <Typography sx={{ fontWeight: 700 }}>{list?.product_name}</Typography>
         </TableCell>
         <TableCell>
           <Switch checked={checked} />
         </TableCell>
         <TableCell>
-          <TextField
-            id="standard-number"
-            type="number"
-            defaultValue={list.price}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="standard"
-            sx={{ width: "50px" }}
-          />
+          <Typography>&#8377;&nbsp;{list?.price}</Typography>
         </TableCell>
         <TableCell>
           <IconButton
@@ -143,17 +132,24 @@ export const ExpandableTableRow = (props) => {
       <TableRow
         sx={
           open && {
-            border: "1px solid #1353A1",
-            borderBottom: "2px solid #1353A1",
+            border: "1px solid #294B29",
+            borderBottom: "2px solid #294B29",
             borderTop: 0,
           }
         }
       >
         <TableCell sx={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
-              <Box>
-                <Typography>Product Description</Typography>
+          <Collapse in={open} unmountOnExit>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: 2,
+                marginBottom: 2,
+              }}
+            >
+              <Box sx={{ minWidth: "100px" }}>
+                <Typography sx={{ fontWeight: 700 }}>Description:</Typography>
               </Box>
               <Box>
                 <Typography>{list.description}</Typography>
@@ -161,11 +157,11 @@ export const ExpandableTableRow = (props) => {
               </Box>
             </Box>
             <Box sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
-              <Box>
-                <Typography>Product Image</Typography>
+              <Box sx={{ minWidth: "100px" }}>
+                <Typography sx={{ fontWeight: 700 }}>Image:</Typography>
               </Box>
-              <Box sx={{width:"200px", height:"200px"}}>
-                <img src={imageURL} alt="Product image"/>
+              <Box sx={{ width: "200px", height: "200px" }}>
+                <img src={imageURL} alt="Product image" />
               </Box>
             </Box>
           </Collapse>

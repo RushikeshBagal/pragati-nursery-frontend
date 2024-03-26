@@ -8,23 +8,28 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-export const InOutInventory = () => {
+export const InOutInventory = ({ product, setShowInOut }) => {
   const [selectedIn, setSelectedIn] = useState(false);
   const [selectedOut, setSelectedOut] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         minHeight: "100vh",
-        pt: 19,
       }}
     >
       <Box sx={{ width: "644px" }}>
-        <Typography>Mango Tree</Typography>
+        <Typography>{product}</Typography>
         {!selectedIn && !selectedOut && (
           <Box>
             <Button
@@ -34,6 +39,7 @@ export const InOutInventory = () => {
                 setSelectedIn(true);
                 setSelectedOut(false);
               }}
+              // endIcon={<AddCircleOutlineIcon sx={{ width: 16 }} />}
             >
               In
             </Button>
@@ -57,9 +63,6 @@ export const InOutInventory = () => {
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">&#8377;</InputAdornment>
-                }
                 label="Quantity"
                 type="number"
               />
@@ -86,9 +89,6 @@ export const InOutInventory = () => {
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-amount"
-              startAdornment={
-                <InputAdornment position="start">&#8377;</InputAdornment>
-              }
               label="Quantity"
               type="number"
             />
@@ -104,8 +104,7 @@ export const InOutInventory = () => {
           <Button
             sx={{ color: "#000" }}
             onClick={() => {
-              setSelectedIn(false);
-              setSelectedOut(false);
+              setShowInOut({ product: "", show: false });
             }}
           >
             <WestOutlinedIcon /> &nbsp; Back

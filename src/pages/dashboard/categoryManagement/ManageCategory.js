@@ -106,7 +106,7 @@ export const ManageCategory = () => {
                 border: "1px solid #DDE1E6",
                 borderRadius: 2,
                 // pt: 3,
-                backgroundColor: "ffffff",
+                backgroundColor: "#ffffff",
               }}
             >
               <Box

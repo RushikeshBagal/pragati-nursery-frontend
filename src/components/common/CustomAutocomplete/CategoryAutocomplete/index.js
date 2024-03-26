@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Autocomplete, Box, TextField } from "@mui/material";
-import "./style.css"
+import "./style.css";
 import { supabase } from "../../../../utils/supabase";
 
 export const CategoryAutocomplete = (props) => {
@@ -13,7 +13,6 @@ export const CategoryAutocomplete = (props) => {
       console.log(error);
     }
     if (data) {
-      // console.log(data);
       setCategoryList(data);
     }
   }
@@ -21,25 +20,27 @@ export const CategoryAutocomplete = (props) => {
   useEffect(() => {
     fetchCategoryList();
   }, []);
-  
+
   return (
     <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-    //   autoHighlight
       options={categoryList || []}
       getOptionLabel={(option) => option?.category_name}
       getOptionDisabled={(option) => !option?.status}
       onChange={(e, value) => setSelectedValue(value)}
       value={selectedValue}
-      // sx={{ pb: 2 }}
       fullWidth
-    //   renderOption={(props, option) => (
-    //     <Box className="custom-dropdown">
-    //       <Box component="li">{option.label}</Box>
-    //     </Box>
-    //   )}
-      renderInput={(params) => <TextField {...params} label="Select Category" />}
+      renderOption={(props, option) => (
+        <Box className="custom-dropdown" {...props}>
+          <Box component="li">{option.category_name}</Box>
+        </Box>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Select Category"
+          sx={{ backgroundColor: "#ffffff" }}
+        />
+      )}
     />
   );
 };

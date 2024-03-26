@@ -3,12 +3,12 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import PageNotFound from "../pages/PageNotFound";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
-import Home from "../pages/Home/Home";
+import Home from "../pages/home/Home";
 import DashboardHome from "../pages/Dashboard/dashboardHome/Home"
 import DashboardLogin from "../pages/Dashboard/authentication/Login";
 import DashboardForgotPassword from "../pages/Dashboard/authentication/ForgotPassword";
 import DashboardResetPassword from "../pages/Dashboard/authentication/ResetPassword";
-import { InOutInventory } from "../pages/Dashboard/InventoryManagement/InOutInventory";
+// import { InOutInventory } from "../pages/Dashboard/InventoryManagement/InOutInventory";
 import { Profile } from "../pages/Profile/Profile";
 
 export const RouterComponent = ({ setShowFooter }) => {
@@ -42,7 +42,6 @@ export const RouterComponent = ({ setShowFooter }) => {
       <Route path="/dashboard-home" element={<DashboardHome />} />
       : ""  
     }
-      {/* // <Route path="/dashboard-home" element={<DashboardHome />} /> */}
       <Route
         path="/dashboard-forgotpassword"
         element={<DashboardForgotPassword />}
@@ -53,7 +52,7 @@ export const RouterComponent = ({ setShowFooter }) => {
       />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-condition" element={<TermsCondition />} />
-      <Route path="/inventory-in-out" element={<InOutInventory />} />
+      {/* <Route path="/inventory-in-out" element={<InOutInventory />} /> */}
       <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>

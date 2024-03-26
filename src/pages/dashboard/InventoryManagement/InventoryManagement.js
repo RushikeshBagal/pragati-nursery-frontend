@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Autocomplete,
   Box,
   Button,
   Table,
@@ -9,15 +8,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
   Typography,
 } from "@mui/material";
 import { SearchBox } from "../../../components/common/SearchBox";
-import { CustomTableRow } from "./CustomTableRow";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { InOutInventory } from "./InOutInventory";
 import { CategoryAutocomplete } from "../../../components/common/CustomAutocomplete/CategoryAutocomplete";
 import { supabase } from "../../../utils/supabase";
+
 const List = [
   {
     name: "Mango Tree",
@@ -52,6 +50,10 @@ const List = [
 ];
 export const InventoryManagement = () => {
   const [selectedValue, setSelectedValue] = useState();
+  const [showInOut, setShowInOut] = useState({
+    product: "",
+    show: false,
+  });
 
   return (
     <Box
@@ -64,35 +66,45 @@ export const InventoryManagement = () => {
       }}
     >
       <Box sx={{ width: "644px" }}>
-        <Box>
-          <Typography variant="topHeading">Inventory Management</Typography>
-        </Box>
-        <Box mt={2} mb={4}>
-          <Typography variant="topSubHeading">
-            Manage all Inventory from here.
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            border: "1px solid #DDE1E6",
-            borderRadius: 2,
-            p: 3,
-            backgroundColor: "ffffff",
-            mb: 5,
-          }}
-        >
-          <CategoryAutocomplete
-            selectedValue={selectedValue}
-            setSelectedValue={setSelectedValue}
+        {showInOut.show && (
+          <InOutInventory
+            product={showInOut.product}
+            setShowInOut={setShowInOut}
           />
-        </Box>
-        {selectedValue && (
+        )}
+        {!showInOut.show && (
+          <>
+            <Box>
+              <Typography variant="topHeading">Inventory Management</Typography>
+            </Box>
+            <Box mt={2} mb={4}>
+              <Typography variant="topSubHeading">
+                Manage all Inventory from here.
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                border: "1px solid #DDE1E6",
+                borderRadius: 2,
+                p: 3,
+                backgroundColor: "#ffffff",
+                mb: 5,
+              }}
+            >
+              <CategoryAutocomplete
+                selectedValue={selectedValue}
+                setSelectedValue={setSelectedValue}
+              />
+            </Box>
+          </>
+        )}
+        {selectedValue && !showInOut.show && (
           <Box
             sx={{
               border: "1px solid #DDE1E6",
               borderRadius: 2,
-              // pt: 3,
-              backgroundColor: "ffffff",
+              backgroundColor: "#ffffff",
             }}
           >
             <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
@@ -100,7 +112,7 @@ export const InventoryManagement = () => {
             </Box>
             <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
               <Table>
-                <TableHead sx={{ backgroundColor: "#EBF0F4", height: 8 }}>
+                <TableHead sx={{ backgroundColor: "#B6C4B6", height: 8 }}>
                   <TableRow>
                     <TableCell>
                       <Typography>Product</Typography>
@@ -128,12 +140,15 @@ export const InventoryManagement = () => {
                       <TableCell>
                         <Typography> &#8377; {list.price}</Typography>
                       </TableCell>
-                      {/* <TableCell>
-                    <Button onClick={()=> {<InOutInventory/>}}>
-                      <ModeEditOutlineOutlinedIcon />
-                    </Button>
-                  </TableCell> */}
-                      <CustomTableRow />
+                      <TableCell>
+                        <Button
+                          onClick={() =>
+                            setShowInOut({ product: list.name, show: true })
+                          }
+                        >
+                          <ModeEditOutlineOutlinedIcon />
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

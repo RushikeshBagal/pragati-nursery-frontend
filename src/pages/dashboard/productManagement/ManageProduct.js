@@ -51,7 +51,7 @@ export const ManageProduct = () => {
     }
     if (data) {
       // console.log(data);
-     const imageResponseData = data["image"]
+      const imageResponseData = data["image"];
       // console.log({imageResponseData})
       setProductList(data);
     }
@@ -102,7 +102,7 @@ export const ManageProduct = () => {
                 border: "1px solid #DDE1E6",
                 borderRadius: 2,
                 p: 3,
-                backgroundColor: "ffffff",
+                backgroundColor: "#ffffff",
                 mb: 5,
               }}
             >
@@ -116,8 +116,7 @@ export const ManageProduct = () => {
                 sx={{
                   border: "1px solid #DDE1E6",
                   borderRadius: 2,
-                  // pt: 3,
-                  backgroundColor: "ffffff",
+                  backgroundColor: "#ffffff",
                 }}
               >
                 <Box
