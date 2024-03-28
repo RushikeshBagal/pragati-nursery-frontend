@@ -2,7 +2,7 @@ import { CssBaseline } from "@mui/material";
 import "./App.css";
 import { RouterComponent } from "./routes/index";
 import { AppThemeProvider } from "./theme";
-import Header from "./components/layout/Header/Header";
+import Header from "./components/layout/Header/header";
 import Footer from "./components/layout/Footer/Footer";
 import { BrowserRouter } from "react-router-dom";
 import { useState } from "react";

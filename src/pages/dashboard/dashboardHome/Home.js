@@ -7,6 +7,7 @@ import { ManageProduct } from "../productManagement/ManageProduct";
 import { ManageCategory } from "../categoryManagement/ManageCategory";
 import { SalesChart } from "../salesChart/SalesChart";
 import { Orders } from "../orders/Orders";
+import { ContentManagement } from "../contentManagement/contentManagement";
 
 const drawerWidth = 270;
 
@@ -45,6 +46,8 @@ const DashboardHome = ({ children }) => {
             <SalesChart />
           ) : selectedTab === "Orders" ? (
             <Orders />
+          ) : selectedTab === "Content Management" ? (
+            <ContentManagement />
           ) : (
             <></>
           )}

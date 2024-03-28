@@ -7,7 +7,7 @@ export const AddCategory = (props) => {
 
   async function createCategory() {
     const { data, error } = await supabase.from("categories").insert({
-      category_name: category.name,
+      category_name: category.category_name,
     });
 
     fetchCategoryList();
