@@ -11,8 +11,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../utils/supabase";
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,9 +26,9 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleMenu = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   async function handleLogout() {
     handleClose();

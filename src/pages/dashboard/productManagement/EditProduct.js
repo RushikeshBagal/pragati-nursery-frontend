@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -7,10 +7,12 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
+  Typography,
 } from "@mui/material";
 import { CategoryAutocomplete } from "../../../components/common/CustomAutocomplete/CategoryAutocomplete";
 import { ImageUpload } from "./ImageUpload";
 import { supabase } from "../../../utils/supabase";
+import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 
 export const EditProduct = (props) => {
   const {
@@ -22,11 +24,12 @@ export const EditProduct = (props) => {
     setEditProduct,
   } = props;
 
+  const [imageData, setImageData] = useState({});
+
   async function editProductFun(productId) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("products")
       .update({
-        // product_id:product.product_id,
         product_name: displayProduct.product_name,
         description: displayProduct.description,
         category_name: displayProduct.category_name,
@@ -40,14 +43,10 @@ export const EditProduct = (props) => {
     if (error) {
       console.log(error);
     }
-    if (data) {
-      // console.log(data);
-    }
   }
 
   const handleChangeEdit = (event) => {
     setDisplayProduct((prevFormData) => {
-      // console.log(prevFormData)
       return {
         ...prevFormData,
         [event.target.name]: event.target.value,
@@ -59,15 +58,32 @@ export const EditProduct = (props) => {
     editProductFun(displayProduct.product_id);
     setEditProduct(false);
   };
+
+  const getDownloadURL = () => {
+    if (displayProduct.image) {
+      const { data } = supabase.storage
+        .from("Pragati_Nursery")
+        .getPublicUrl(displayProduct.image.path);
+      setImageData(data.publicUrl);
+    }
+  };
+
+  useEffect(() => {
+    getDownloadURL();
+  }, []);
+
   return (
     <>
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="topSubHeading">Edit Product</Typography>
+      </Box>
       <Box>
         <TextField
           id="outlined-basic"
           label="Product Name"
           variant="outlined"
           fullWidth
-          sx={{ pb: 2 }}
+          sx={{ pb: 2, backgroundColor: "#ffffff" }}
           name="name"
           onChange={handleChangeEdit}
           defaultValue={displayProduct.product_name}
@@ -79,7 +95,7 @@ export const EditProduct = (props) => {
           fullWidth
           multiline
           rows={4}
-          sx={{ pb: 2 }}
+          sx={{ pb: 2, backgroundColor: "#ffffff" }}
           name="description"
           onChange={handleChangeEdit}
           defaultValue={displayProduct.description}
@@ -87,6 +103,7 @@ export const EditProduct = (props) => {
         <CategoryAutocomplete
           selectedValue={selectedValueEditProduct}
           setSelectedValue={setSelectedValueEditProduct}
+          defaultInput={selectedValueEditProduct}
         />
         <FormControl fullWidth sx={{ pb: 2, mt: 2 }}>
           <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
@@ -95,6 +112,7 @@ export const EditProduct = (props) => {
             startAdornment={
               <InputAdornment position="start">&#8377;</InputAdornment>
             }
+            sx={{ backgroundColor: "#ffffff" }}
             label="price"
             type="number"
             name="price"
@@ -108,20 +126,25 @@ export const EditProduct = (props) => {
             p: 2,
             textAlign: "center",
             height: "35vh",
+            backgroundColor: "#ffffff",
           }}
         >
-          <ImageUpload />
+          <ImageUpload imageData={imageData} setImageData={setImageData} />
         </Box>
       </Box>
       <Box
         sx={{
-          margin: "16px",
+          marginY: "16px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <Button variant="outlined" onClick={() => setEditProduct(false)}>
+        <Button
+          variant="outlined"
+          onClick={() => setEditProduct(false)}
+          startIcon={<WestOutlinedIcon />}
+        >
           Back
         </Button>
         <Button variant="contained" onClick={() => handleEditSubmit()}>

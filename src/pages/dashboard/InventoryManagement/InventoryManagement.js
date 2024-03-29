@@ -14,7 +14,7 @@ import { SearchBox } from "../../../components/common/SearchBox";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { InOutInventory } from "./InOutInventory";
 import { CategoryAutocomplete } from "../../../components/common/CustomAutocomplete/CategoryAutocomplete";
-import { supabase } from "../../../utils/supabase";
+// import { supabase } from "../../../utils/supabase";
 
 const List = [
   {
@@ -48,12 +48,9 @@ const List = [
     price: "25",
   },
 ];
-export const InventoryManagement = () => {
+export const InventoryManagement = (props) => {
+  const { showInOut, setShowInOut } = props;
   const [selectedValue, setSelectedValue] = useState();
-  const [showInOut, setShowInOut] = useState({
-    product: "",
-    show: false,
-  });
 
   return (
     <Box
@@ -108,7 +105,7 @@ export const InventoryManagement = () => {
             }}
           >
             <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
-              <SearchBox />
+              {/* <SearchBox /> */}
             </Box>
             <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
               <Table>

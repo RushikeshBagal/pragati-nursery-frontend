@@ -6,7 +6,6 @@ import {
   Switch,
   TableCell,
   TableRow,
-  TextField,
   Typography,
 } from "@mui/material";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
@@ -22,7 +21,7 @@ export const ExpandableTableRow = (props) => {
   const [imageURL, setImageURL] = useState();
 
   async function deleteProduct(productId) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("products")
       .delete()
       .eq("product_id", productId);
@@ -31,9 +30,6 @@ export const ExpandableTableRow = (props) => {
 
     if (error) {
       console.log(error);
-    }
-    if (data) {
-      // console.log(data);
     }
   }
 
@@ -59,16 +55,12 @@ export const ExpandableTableRow = (props) => {
     setEditProduct(true);
   };
 
-  // console.log(list.image);
-
-  const getDownloadURL = async () => {
+  const getDownloadURL = () => {
     if (list.image) {
-      // console.log(list.image.path)
-      const { data } = await supabase.storage
-        .from("Pragati_Nursary")
+      const { data } = supabase.storage
+        .from("Pragati_Nursery")
         .getPublicUrl(list.image.path);
       setImageURL(data.publicUrl);
-      // console.log(data.publicUrl)
     }
   };
 
@@ -98,9 +90,11 @@ export const ExpandableTableRow = (props) => {
           <Switch checked={checked} />
         </TableCell>
         <TableCell>
-          <Typography>&#8377;&nbsp;{list?.price}</Typography>
+          <Typography sx={{ textAlign: "center" }}>
+            &#8377;&nbsp;{list?.price}
+          </Typography>
         </TableCell>
-        <TableCell>
+        <TableCell sx={{ textAlign: "center", borderBottom: 0 }}>
           <IconButton
             onClick={() => {
               onClickEdit(list?.product_id);
@@ -153,15 +147,18 @@ export const ExpandableTableRow = (props) => {
               </Box>
               <Box>
                 <Typography>{list.description}</Typography>
-                {/* <Typography>Product Image</Typography> */}
               </Box>
             </Box>
             <Box sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
               <Box sx={{ minWidth: "100px" }}>
                 <Typography sx={{ fontWeight: 700 }}>Image:</Typography>
               </Box>
-              <Box sx={{ width: "200px", height: "200px" }}>
-                <img src={imageURL} alt="Product image" />
+              <Box>
+                <img
+                  src={imageURL}
+                  alt={list?.product_name}
+                  style={{ maxHeight: "200px", maxWidth: "200px" }}
+                />
               </Box>
             </Box>
           </Collapse>

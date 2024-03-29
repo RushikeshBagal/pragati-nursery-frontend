@@ -35,7 +35,15 @@ const options = [
 ];
 
 const SideBar = (props) => {
-  const { drawerWidth, selectedTab, setSelectedTab } = props;
+  const {
+    drawerWidth,
+    selectedTab,
+    setSelectedTab,
+    setAddCategory,
+    setEditCategory,
+    setAddProduct,
+    setEditProduct,
+  } = props;
   return (
     <Drawer
       sx={{
@@ -60,7 +68,17 @@ const SideBar = (props) => {
           <ListItem
             key={index}
             disablePadding
-            onClick={() => setSelectedTab(text.tabName)}
+            onClick={() => {
+              setSelectedTab(text.tabName);
+              if (text.tabName === "Category Management") {
+                setAddCategory(false);
+                setEditCategory(false);
+              }
+              if (text.tabName === "Product Management") {
+                setAddProduct(false);
+                setEditProduct(false);
+              }
+            }}
             sx={
               selectedTab === text.tabName
                 ? {

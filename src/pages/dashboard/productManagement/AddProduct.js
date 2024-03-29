@@ -6,11 +6,13 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
+  Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CategoryAutocomplete } from "../../../components/common/CustomAutocomplete/CategoryAutocomplete";
 import { ImageUpload } from "./ImageUpload";
 import { supabase } from "../../../utils/supabase";
+import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 const { v4 } = require("uuid");
 
 export const AddProduct = (props) => {
@@ -37,8 +39,6 @@ export const AddProduct = (props) => {
         throw imageError;
       }
 
-      // console.log(imageResponse);
-
       const { data, error } = await supabase.from("products").insert({
         product_name: product.name,
         description: product.description,
@@ -54,7 +54,6 @@ export const AddProduct = (props) => {
         throw error;
       }
       if (data) {
-        // console.log(data);
         setSuccessOpen(true);
       }
     } catch (error) {}
@@ -67,7 +66,6 @@ export const AddProduct = (props) => {
 
   const handleChange = (event) => {
     setProduct((prevFormData) => {
-      // console.log(prevFormData)
       return {
         ...prevFormData,
         [event.target.name]: event.target.value,
@@ -75,15 +73,22 @@ export const AddProduct = (props) => {
     });
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="topSubHeading">Add New Product</Typography>
+      </Box>
       <Box>
         <TextField
           id="outlined-basic"
           label="Product Name"
           variant="outlined"
           fullWidth
-          sx={{ pb: 2 }}
+          sx={{ pb: 2, backgroundColor: "#ffffff" }}
           name="name"
           onChange={handleChange}
         />
@@ -94,7 +99,7 @@ export const AddProduct = (props) => {
           fullWidth
           multiline
           rows={4}
-          sx={{ pb: 2 }}
+          sx={{ pb: 2, backgroundColor: "#ffffff" }}
           name="description"
           onChange={handleChange}
         />
@@ -113,6 +118,7 @@ export const AddProduct = (props) => {
             type="number"
             name="price"
             onChange={handleChange}
+            sx={{ backgroundColor: "#ffffff" }}
           />
         </FormControl>
         <Box
@@ -121,6 +127,7 @@ export const AddProduct = (props) => {
             p: 2,
             textAlign: "center",
             height: "35vh",
+            backgroundColor: "#ffffff",
           }}
         >
           <ImageUpload imageData={imageData} setImageData={setImageData} />
@@ -128,13 +135,17 @@ export const AddProduct = (props) => {
       </Box>
       <Box
         sx={{
-          margin: "16px",
+          marginY: "16px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <Button variant="outlined" onClick={() => setAddProduct(false)}>
+        <Button
+          variant="outlined"
+          onClick={() => setAddProduct(false)}
+          startIcon={<WestOutlinedIcon />}
+        >
           Back
         </Button>
         <Button variant="contained" onClick={() => handleSubmit()}>

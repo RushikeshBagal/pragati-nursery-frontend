@@ -16,15 +16,13 @@ import { CategoryAutocomplete } from "../../../components/common/CustomAutocompl
 import { supabase } from "../../../utils/supabase";
 import { AddProduct } from "./AddProduct";
 import { EditProduct } from "./EditProduct";
-import { CustomSuccessSnackBar } from "../../../components/common/SnackBar/success";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-export const ManageProduct = () => {
-  const [addProduct, setAddProduct] = useState(false);
-  const [editProduct, setEditProduct] = useState(false);
+export const ManageProduct = (props) => {
+  const { addProduct, setAddProduct, editProduct, setEditProduct } = props;
   const [selectedValue, setSelectedValue] = useState();
   const [selectedValueAddProduct, setSelectedValueAddProduct] = useState();
-  const [selectedValueEditProduct, setSelectedValueEditProduct] =
-    useState(selectedValue);
+  const [selectedValueEditProduct, setSelectedValueEditProduct] = useState();
   const [productList, setProductList] = useState();
   const [successOpen, setSuccessOpen] = useState(true);
   const [product, setProduct] = useState({
@@ -42,28 +40,29 @@ export const ManageProduct = () => {
     price: "",
     image: "",
   });
+  const [displayData, setDisplayData] = useState();
 
   async function fetchProductList() {
-    const { data, error } = await supabase.from("products").select("*");
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("category_name", selectedValue?.category_name);
 
     if (error) {
       console.log(error);
     }
     if (data) {
-      // console.log(data);
-      const imageResponseData = data["image"];
-      // console.log({imageResponseData})
+      // const imageResponseData = data["image"];
       setProductList(data);
     }
   }
 
   useEffect(() => {
-    fetchProductList();
+    if (selectedValue) {
+      fetchProductList();
+      setSelectedValueEditProduct(selectedValue);
+    }
   }, [selectedValue]);
-
-  const filteredProduct = productList?.filter(
-    (item) => item?.category_name === selectedValue?.category_name
-  );
 
   useEffect(() => {
     product.category_name = selectedValueAddProduct?.category_name;
@@ -72,9 +71,6 @@ export const ManageProduct = () => {
   useEffect(() => {
     displayProduct.category_name = selectedValueEditProduct?.category_name;
   }, [selectedValueEditProduct]);
-
-  // console.log("Product object", product)
-  // console.table(productList);
 
   return (
     <Box
@@ -94,7 +90,7 @@ export const ManageProduct = () => {
             </Box>
             <Box mt={2} mb={4}>
               <Typography variant="topSubHeading">
-                Add new products from here.
+                Manage existing products or add new products here.
               </Typography>
             </Box>
             <Box
@@ -124,19 +120,38 @@ export const ManageProduct = () => {
                     margin: "16px",
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "flex-end",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    onClick={() => setAddProduct(true)}
-                  >
-                    Add Product
-                  </Button>
+                  <Box>
+                    <Typography variant="topSubHeading" ml={1}>
+                      Products
+                    </Typography>
+                  </Box>
+                  <Box sx={{ mr: 1 }}>
+                    <Button
+                      variant="contained"
+                      onClick={() => setAddProduct(true)}
+                      startIcon={
+                        <AddCircleOutlineIcon sx={{ width: "16px" }} />
+                      }
+                    >
+                      Add Product
+                    </Button>
+                  </Box>
                 </Box>
-                <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
-                  <SearchBox />
-                </Box>
+                {productList && (
+                  <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
+                    <SearchBox
+                      data={productList}
+                      handleData={setDisplayData}
+                      title="Search Products"
+                      property={"product_name"}
+                    />
+                  </Box>
+                )}
+
                 <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
                   <Table>
                     <TableHead sx={{ backgroundColor: "#EBF0F4", height: 8 }}>
@@ -148,16 +163,20 @@ export const ManageProduct = () => {
                           <Typography>In Stock</Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>Price (&#8377;)</Typography>
+                          <Typography sx={{ textAlign: "center" }}>
+                            Price (&#8377;)
+                          </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>Action</Typography>
+                          <Typography sx={{ textAlign: "center" }}>
+                            Action
+                          </Typography>
                         </TableCell>
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {filteredProduct?.map((list, key) => (
+                      {displayData?.map((list) => (
                         <ExpandableTableRow
                           key={list.product_id}
                           list={list}
@@ -197,7 +216,6 @@ export const ManageProduct = () => {
           />
         )}
       </Box>
-      {/* <CustomSuccessSnackBar open={successOpen} setOpen={setSuccessOpen} message="Product added Successfully!" /> */}
     </Box>
   );
 };

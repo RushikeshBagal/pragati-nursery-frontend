@@ -10,8 +10,16 @@ import { Orders } from "../orders/Orders";
 
 const drawerWidth = 270;
 
-const DashboardHome = ({ children }) => {
+const DashboardHome = () => {
   const [selectedTab, setSelectedTab] = useState("Inventory Management");
+  const [showInOut, setShowInOut] = useState({
+    product: "",
+    show: false,
+  });
+  const [addCategory, setAddCategory] = useState(false);
+  const [editCategory, setEditCategory] = useState(false);
+  const [addProduct, setAddProduct] = useState(false);
+  const [editProduct, setEditProduct] = useState(false);
   return (
     <Box mb={15}>
       <AppBar
@@ -26,6 +34,10 @@ const DashboardHome = ({ children }) => {
             drawerWidth={drawerWidth}
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
+            setAddCategory={setAddCategory}
+            setEditCategory={setEditCategory}
+            setAddProduct={setAddProduct}
+            setEditProduct={setEditProduct}
           />
         </Grid>
         <Grid
@@ -36,11 +48,24 @@ const DashboardHome = ({ children }) => {
           }}
         >
           {selectedTab === "Inventory Management" ? (
-            <InventoryManagement />
+            <InventoryManagement
+              showInOut={showInOut}
+              setShowInOut={setShowInOut}
+            />
           ) : selectedTab === "Product Management" ? (
-            <ManageProduct />
+            <ManageProduct
+              addProduct={addProduct}
+              setAddProduct={setAddProduct}
+              editProduct={editProduct}
+              setEditProduct={setEditProduct}
+            />
           ) : selectedTab === "Category Management" ? (
-            <ManageCategory />
+            <ManageCategory
+              addCategory={addCategory}
+              setAddCategory={setAddCategory}
+              editCategory={editCategory}
+              setEditCategory={setEditCategory}
+            />
           ) : selectedTab === "Sales Chart" ? (
             <SalesChart />
           ) : selectedTab === "Orders" ? (

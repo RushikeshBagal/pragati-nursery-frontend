@@ -18,15 +18,13 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { AddCategory } from "./AddCategory";
 import { EditCategory } from "./EditCategory";
 import { supabase } from "../../../utils/supabase";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-export const ManageCategory = () => {
-  const [addCategory, setAddCategory] = useState(false);
-  const [editCategory, setEditCategory] = useState(false);
+export const ManageCategory = (props) => {
+  const { addCategory, setAddCategory, editCategory, setEditCategory } = props;
   const [categoryList, setCategoryList] = useState();
-  const [checked, setChecked] = useState();
-  const [category, setCategory] = useState({
-    category_name: "",
-  });
+  // const [checked, setChecked] = useState();
+  const [displayData, setDisplayData] = useState();
   const [displayCategory, setDisplayCategory] = useState({
     id: "",
     category_name: "",
@@ -39,7 +37,6 @@ export const ManageCategory = () => {
       console.log(error);
     }
     if (data) {
-      // console.log(data);
       setCategoryList(data);
     }
   }
@@ -49,7 +46,7 @@ export const ManageCategory = () => {
   }, []);
 
   async function deleteCategory(categoryId) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("categories")
       .delete()
       .eq("category_id", categoryId);
@@ -59,24 +56,10 @@ export const ManageCategory = () => {
     if (error) {
       console.log(error);
     }
-    if (data) {
-      // console.log(data);
-    }
   }
 
-  function displayCategoryFun(categoryId) {
-    if (categoryList.category_id === categoryId) {
-      setDisplayCategory({
-        category_id: categoryList.category_id,
-        category_name: categoryList.category_name,
-      });
-    }
-  }
-
-  // console.log(displayCategory);
-
-  const onClickEdit = (editCategoryId) => {
-    displayCategoryFun(editCategoryId);
+  const onClickEdit = (data) => {
+    setDisplayCategory(data);
     setEditCategory(true);
   };
 
@@ -98,14 +81,13 @@ export const ManageCategory = () => {
             </Box>
             <Box mt={2} mb={4}>
               <Typography variant="topSubHeading">
-                Add new Category from here.
+                Add and manage Category here.
               </Typography>
             </Box>
             <Box
               sx={{
                 border: "1px solid #DDE1E6",
                 borderRadius: 2,
-                // pt: 3,
                 backgroundColor: "#ffffff",
               }}
             >
@@ -114,19 +96,34 @@ export const ManageCategory = () => {
                   margin: "16px",
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "flex-end",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
+                <Box>
+                  <Typography variant="topSubHeading" ml={1}>
+                    Categories
+                  </Typography>
+                </Box>
                 <Button
                   variant="contained"
                   onClick={() => setAddCategory(true)}
+                  startIcon={<AddCircleOutlineIcon sx={{ width: "16px" }} />}
+                  sx={{ mr: 1 }}
                 >
                   Add Category
                 </Button>
               </Box>
-              <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
-                <SearchBox />
-              </Box>
+              {categoryList && (
+                <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
+                  <SearchBox
+                    data={categoryList}
+                    handleData={setDisplayData}
+                    title="Search Products"
+                    property={"category_name"}
+                  />
+                </Box>
+              )}
               <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
                 <Table>
                   <TableHead sx={{ backgroundColor: "#EBF0F4", height: 8 }}>
@@ -135,26 +132,30 @@ export const ManageCategory = () => {
                         <Typography>Category</Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography>Status</Typography>
+                        <Typography sx={{ textAlign: "center" }}>
+                          Status
+                        </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography>Action</Typography>
+                        <Typography sx={{ textAlign: "center" }}>
+                          Action
+                        </Typography>
                       </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {categoryList?.map((list) => (
-                      <TableRow>
+                    {displayData?.map((list) => (
+                      <TableRow key={list.id}>
                         <TableCell>
                           <Typography>{list.category_name}</Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           <Switch checked={list.status} />
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           <IconButton
                             onClick={() => {
-                              onClickEdit(list.category_id);
+                              onClickEdit(list);
                             }}
                           >
                             <EditNoteOutlinedIcon />
@@ -180,8 +181,6 @@ export const ManageCategory = () => {
           <AddCategory
             setAddCategory={setAddCategory}
             fetchCategoryList={fetchCategoryList}
-            category={category}
-            setCategory={setCategory}
           />
         )}
         {/* Edit Product Section */}
@@ -189,7 +188,7 @@ export const ManageCategory = () => {
           <EditCategory
             displayCategory={displayCategory}
             setDisplayCategory={setDisplayCategory}
-            setAddCategory={setAddCategory}
+            setEditCategory={setEditCategory}
             fetchCategoryList={fetchCategoryList}
           />
         )}

@@ -4,7 +4,7 @@ import "./style.css";
 import { supabase } from "../../../../utils/supabase";
 
 export const CategoryAutocomplete = (props) => {
-  const { selectedValue, setSelectedValue } = props;
+  const { selectedValue, setSelectedValue, defaultInput } = props;
   const [categoryList, setCategoryList] = useState();
 
   async function fetchCategoryList() {
@@ -28,6 +28,7 @@ export const CategoryAutocomplete = (props) => {
       getOptionDisabled={(option) => !option?.status}
       onChange={(e, value) => setSelectedValue(value)}
       value={selectedValue}
+      defaultInput={defaultInput || null}
       fullWidth
       renderOption={(props, option) => (
         <Box className="custom-dropdown" {...props}>

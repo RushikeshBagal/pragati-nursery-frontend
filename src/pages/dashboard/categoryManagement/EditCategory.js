@@ -1,33 +1,33 @@
-import React from "react";
-import { Box, Button, TextField } from "@mui/material";
+import React, { useEffect } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { supabase } from "../../../utils/supabase";
+import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 
 export const EditCategory = (props) => {
-  const { displayCategory, setDisplayCategory, setAddCategory, fetchCategoryList } = props;
-  // console.log(displayCategory);
+  const {
+    displayCategory,
+    setDisplayCategory,
+    setEditCategory,
+    fetchCategoryList,
+  } = props;
 
   async function editCategoryFun(categoryId) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("categories")
       .update({
-        // category_id:product.category_id,
         category_name: displayCategory.category_name,
       })
       .eq("category_id", categoryId);
 
-      fetchCategoryList();
+    fetchCategoryList();
 
     if (error) {
       console.log(error);
-    }
-    if (data) {
-      // console.log(data);
     }
   }
 
   const handleChangeEdit = (event) => {
     setDisplayCategory((prevFormData) => {
-      // console.log(prevFormData)
       return {
         ...prevFormData,
         [event.target.name]: event.target.value,
@@ -37,33 +37,43 @@ export const EditCategory = (props) => {
 
   const handleEditSubmit = () => {
     editCategoryFun(displayCategory.category_id);
-    setAddCategory(false);
+    setEditCategory(false);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
-      <Box>
-        <TextField
-          id="outlined-basic"
-          label="Category Name"
-          variant="outlined"
-          fullWidth
-          name="category_name"
-          onChange={handleChangeEdit}
-          defaultValue={displayCategory.category_name}
-        />
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="topSubHeading">Edit Category Name</Typography>
       </Box>
+      <TextField
+        id="outlined-basic"
+        label="Category Name"
+        variant="outlined"
+        fullWidth
+        name="category_name"
+        onChange={handleChangeEdit}
+        defaultValue={displayCategory.category_name}
+        sx={{ backgroundColor: "#ffffff" }}
+      />
       <Box
         sx={{
-          margin: "16px",
+          marginY: "16px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <button variant="outlined" onClick={() => setAddCategory(false)}>
+        <Button
+          variant="outlined"
+          onClick={() => setEditCategory(false)}
+          startIcon={<WestOutlinedIcon />}
+        >
           Back
-        </button>
+        </Button>
         <Button variant="contained" onClick={() => handleEditSubmit()}>
           Submit
         </Button>

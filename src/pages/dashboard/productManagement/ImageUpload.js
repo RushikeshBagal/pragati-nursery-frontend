@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import "./ImageUpload.css";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 
-export const ImageUpload = ({setImageData, imageData}) => {
+export const ImageUpload = (props) => {
+  const { setImageData, imageData } = props;
   const [image, setImage] = useState({});
   const [isUploaded, setIsUploaded] = useState(false);
-  // const [imageData, setImageData] = useState({});
   const inputRef = React.useRef(null);
   const acceptedFileType = "image/jpeg, image/jpg, image/png";
+
   const handleDocSelect = (event) => {
     const file = Array.from(event.target?.files)[0];
     setImage(URL.createObjectURL(file));
     setIsUploaded(true);
     setImageData(file);
   };
+
   const onUploadButton = () => {
     inputRef.current.click();
   };
-  // console.log(imageData);
+
   return (
     <Box>
       <input
@@ -28,11 +29,6 @@ export const ImageUpload = ({setImageData, imageData}) => {
         accept={acceptedFileType}
         onChange={handleDocSelect}
       />
-      {/* {!isUploaded && (
-        <Button variant="contained" onClick={onUploadButton}>
-          Upload Image
-        </Button>
-      )} */}
       {isUploaded && acceptedFileType.includes(imageData.type) && (
         <img
           id="frame"
@@ -43,7 +39,13 @@ export const ImageUpload = ({setImageData, imageData}) => {
       )}
       {!isUploaded ? (
         <>
-          <CloudUploadOutlinedIcon sx={{fontSize:"180px"}}/>
+          <img
+            id="frame"
+            src={imageData}
+            alt="product"
+            width={"200px"}
+            height={"180px"}
+          />
           <Button variant="contained" onClick={onUploadButton}>
             Upload Image
           </Button>
