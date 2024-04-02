@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { AddressSection } from "./address/Address";
 import { MyOrders } from "./myOrders/MyOrders";
+import { OrderHistory } from "./orderHistory/OrderHistory";
 
 export const Profile = () => {
   const [selectedButton, setSelectedButton] = useState("Order History");
@@ -28,36 +29,30 @@ export const Profile = () => {
           alignItems: "center",
         }}
       >
-        <Box>
-          <ButtonGroup variant="text">
-            <Button
-              onClick={() => {
-                setSelectedButton("Order History");
-              }}
-            >
-              Order History
-            </Button>
-            <Button
-              onClick={() => {
-                setSelectedButton("Saved Address");
-              }}
-            >
-              Saved Address
-            </Button>
-            <Button
-              onClick={() => {
-                setSelectedButton("My Orders");
-              }}
-            >
-              My Orders
-            </Button>
-          </ButtonGroup>
-        </Box>
-        {selectedButton === "Order History" && (
-          <Box pt={2} sx={{ textAlign: "center" }}>
-            No Order History
-          </Box>
-        )}
+        <ButtonGroup variant="text" aria-label="Basic button group">
+          <Button
+            onClick={() => {
+              setSelectedButton("Order History");
+            }}
+          >
+            Order History
+          </Button>
+          <Button
+            onClick={() => {
+              setSelectedButton("Saved Address");
+            }}
+          >
+            Saved Address
+          </Button>
+          <Button
+            onClick={() => {
+              setSelectedButton("My Orders");
+            }}
+          >
+            My Orders
+          </Button>
+        </ButtonGroup>
+        {selectedButton === "Order History" && <OrderHistory />}
         {selectedButton === "Saved Address" && <AddressSection />}
         {selectedButton === "My Orders" && <MyOrders />}
       </Box>
