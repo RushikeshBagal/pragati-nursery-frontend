@@ -33,8 +33,8 @@ export const OrderHistoryList = () => {
 
   return (
     <Box sx={{ margin: 5, border: "1px solid #ddd", borderRadius: "20px" }}>
-      {cartList.map((product) => (
-        <>
+      {cartList.map((product, idx) => (
+        <Box key={idx}>
           <Box
             sx={{
               display: "flex",
@@ -56,8 +56,8 @@ export const OrderHistoryList = () => {
             <CheckCircleRoundedIcon sx={{ color: "green" }} />
             <Typography> &nbsp;Delivered on March 15, 2024</Typography>
           </Box>
-          <Divider />
-        </>
+          {idx !== cartList.length - 1 && <Divider />}
+        </Box>
       ))}
     </Box>
   );

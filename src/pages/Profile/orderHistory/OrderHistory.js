@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { OrderHistoryList } from "./orderHistoryList";
+import { OrderHistoryList } from "./OrderHistoryList";
 
 export const OrderHistory = () => {
   const [isMyOrderHistory, setIsMyOrderHistory] = useState(true);
