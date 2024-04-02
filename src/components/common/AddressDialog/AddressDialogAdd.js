@@ -12,9 +12,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { supabase } from "../../../utils/supabase";
 import HomeIcon from "@mui/icons-material/Home";
 import WorkIcon from "@mui/icons-material/Work";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-export const AddressDialogAdd = ({ setIsAddress }) => {
+export const AddressDialogAdd = ({ userId, fetchAddress }) => {
   const [open, setOpen] = useState(false);
   const [address, setAddress] = useState({
     address_line_1: "",
@@ -32,7 +33,8 @@ export const AddressDialogAdd = ({ setIsAddress }) => {
   };
 
   async function AddAddress() {
-    const { data, error } = await supabase.from("user_address").insert({
+    const { error } = await supabase.from("user_address").insert({
+      user_id: userId,
       address_line_1: address.address_line_1,
       address_line_2: address.address_line_2,
       landmark: address.landmark,
@@ -41,25 +43,22 @@ export const AddressDialogAdd = ({ setIsAddress }) => {
       state: address.state,
       pincode: address.pincode,
       mobile_no: address.mobile_no,
+      address_type: address.address_type,
     });
 
     if (error) {
       console.log(error);
     }
-    if (data) {
-      // console.log(data);
-    }
+    fetchAddress();
   }
 
   const handleSubmit = () => {
     AddAddress();
     handleClose();
-    // setIsAddress(true);
   };
 
   const handleChange = (event) => {
     setAddress((prevFormData) => {
-      // console.log(prevFormData)
       return {
         ...prevFormData,
         [event.target.name]: event.target.value,
@@ -67,20 +66,30 @@ export const AddressDialogAdd = ({ setIsAddress }) => {
     });
   };
 
-  const handleClickChip = () => {};
+  const handleClickChip = (e) => {
+    setAddress((prevFormData) => {
+      return {
+        ...prevFormData,
+        address_type: e.target.innerText,
+      };
+    });
+  };
 
   return (
     <>
       <Button
+        size="small"
         variant="contained"
         onClick={() => {
           setOpen(true);
         }}
+        startIcon={<AddCircleOutlineIcon sx={{ width: "16px" }} />}
       >
-        Add New Address
+        Add Address
       </Button>
       <Dialog
         fullWidth
+        scroll="body"
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -171,24 +180,34 @@ export const AddressDialogAdd = ({ setIsAddress }) => {
             />
             <Box sx={{ marginTop: 2 }}>
               <Chip
+                sx={{ height: "max-content" }}
+                color="primary"
                 label="Home"
-                icon={<HomeIcon />}
-                variant="outlined"
-                onClick={handleClickChip}
+                icon={<HomeIcon sx={{ width: "16px" }} />}
+                variant={
+                  address.address_type === "Home" ? "filled" : "outlined"
+                }
+                onClick={(e) => handleClickChip(e)}
               />
               <Chip
-                sx={{ marginLeft: 2 }}
+                sx={{ height: "max-content", ml: 1 }}
+                color="primary"
                 label="Work"
-                icon={<WorkIcon />}
-                variant="outlined"
-                onClick={handleClickChip}
+                icon={<WorkIcon sx={{ width: "16px" }} />}
+                variant={
+                  address.address_type === "Work" ? "filled" : "outlined"
+                }
+                onClick={(e) => handleClickChip(e)}
               />
               <Chip
-                sx={{ marginLeft: 2 }}
+                sx={{ height: "max-content", ml: 1 }}
+                color="primary"
                 label="Other"
-                icon={<LocationOnIcon />}
-                variant="outlined"
-                onClick={handleClickChip}
+                icon={<ApartmentIcon sx={{ width: "16px" }} />}
+                variant={
+                  address.address_type === "Other" ? "filled" : "outlined"
+                }
+                onClick={(e) => handleClickChip(e)}
               />
             </Box>
             <Box

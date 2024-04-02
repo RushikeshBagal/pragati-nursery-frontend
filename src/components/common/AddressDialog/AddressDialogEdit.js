@@ -12,11 +12,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import { supabase } from "../../../utils/supabase";
 import HomeIcon from "@mui/icons-material/Home";
 import WorkIcon from "@mui/icons-material/Work";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import EditIcon from "@mui/icons-material/Edit";
 
-const userId = 1;
-
-export const AddressDialogEdit = ({ savedAddressData }) => {
+export const AddressDialogEdit = ({
+  savedAddressData,
+  userId,
+  fetchAddress,
+}) => {
   const [open, setOpen] = useState(false);
   const [displayAddress, setDisplayAddress] = useState({
     address_line_1: "",
@@ -44,14 +47,15 @@ export const AddressDialogEdit = ({ savedAddressData }) => {
         state: savedAddressData.state,
         pincode: savedAddressData.pincode,
         mobile_no: savedAddressData.mobile_no,
+        address_type: savedAddressData.address_type,
       });
     }
   }
-  console.log(displayAddress, savedAddressData);
   async function editAddress(userId) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("user_address")
       .update({
+        user_id: userId,
         address_line_1: displayAddress.address_line_1,
         address_line_2: displayAddress.address_line_2,
         landmark: displayAddress.landmark,
@@ -60,20 +64,18 @@ export const AddressDialogEdit = ({ savedAddressData }) => {
         state: displayAddress.state,
         pincode: displayAddress.pincode,
         mobile_no: displayAddress.mobile_no,
+        address_type: displayAddress.address_type,
       })
-      .eq("user_id", userId);
+      .eq("address_id", savedAddressData.address_id);
 
     if (error) {
       console.log(error);
     }
-    if (data) {
-      // console.log(data);
-    }
+    fetchAddress();
   }
 
   const handleChange = (event) => {
     setDisplayAddress((prevFormData) => {
-      // console.log(prevFormData)
       return {
         ...prevFormData,
         [event.target.name]: event.target.value,
@@ -84,30 +86,37 @@ export const AddressDialogEdit = ({ savedAddressData }) => {
   const handleSubmit = () => {
     editAddress(userId);
     handleClose();
-    // setIsAddress(true);
   };
 
   const handleEditClick = () => {
     setOpen(true);
     displayAddressFun(userId);
-    // setIsAddress(true);
   };
 
-  const handleClickChip = () => {};
+  const handleClickChip = (e) => {
+    setDisplayAddress((prevFormData) => {
+      return {
+        ...prevFormData,
+        address_type: e.target.innerText,
+      };
+    });
+  };
 
   return (
     <>
       <Button
-        variant="text"
+        variant="outlined"
         onClick={() => {
           handleEditClick();
         }}
+        startIcon={<EditIcon sx={{ width: "16px" }} />}
       >
-        Edit Address
+        Edit
       </Button>
       <Dialog
         fullWidth
         open={open}
+        scroll="body"
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -205,24 +214,36 @@ export const AddressDialogEdit = ({ savedAddressData }) => {
             />
             <Box sx={{ marginTop: 2 }}>
               <Chip
+                sx={{ height: "max-content" }}
+                color="primary"
                 label="Home"
-                icon={<HomeIcon />}
-                variant="outlined"
-                onClick={handleClickChip}
+                icon={<HomeIcon sx={{ width: "16px" }} />}
+                variant={
+                  displayAddress.address_type === "Home" ? "filled" : "outlined"
+                }
+                onClick={(e) => handleClickChip(e)}
               />
               <Chip
-                sx={{ marginLeft: 2 }}
+                sx={{ height: "max-content", ml: 1 }}
+                color="primary"
                 label="Work"
-                icon={<WorkIcon />}
-                variant="outlined"
-                onClick={handleClickChip}
+                icon={<WorkIcon sx={{ width: "16px" }} />}
+                variant={
+                  displayAddress.address_type === "Work" ? "filled" : "outlined"
+                }
+                onClick={(e) => handleClickChip(e)}
               />
               <Chip
-                sx={{ marginLeft: 2 }}
+                sx={{ height: "max-content", ml: 1 }}
+                color="primary"
                 label="Other"
-                icon={<LocationOnIcon />}
-                variant="outlined"
-                onClick={handleClickChip}
+                icon={<ApartmentIcon sx={{ width: "16px" }} />}
+                variant={
+                  displayAddress.address_type === "Other"
+                    ? "filled"
+                    : "outlined"
+                }
+                onClick={(e) => handleClickChip(e)}
               />
             </Box>
             <Box

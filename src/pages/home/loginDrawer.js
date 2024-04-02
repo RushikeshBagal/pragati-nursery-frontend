@@ -18,8 +18,8 @@ import { supabase } from "../../utils/supabase";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const LoginDrawer = () => {
-  const [isDraweOpen, setIsDrawerOpen] = useState(true);
+const LoginDrawer = (props) => {
+  const { isLoginDrawerOpen, setIsLoginDrawerOpen } = props;
   const [OTPScreen, setOTPScreen] = useState(false);
   const [signUpScreen, setSignupScreen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -44,7 +44,6 @@ const LoginDrawer = () => {
 
   const handleChangeSignUp = (event) => {
     setFormdataSignUp((prevFormData) => {
-      // console.log(prevFormData)
       return {
         ...prevFormData,
         [event.target.name]: event.target.value,
@@ -54,15 +53,12 @@ const LoginDrawer = () => {
 
   const handleChangeLogin = (event) => {
     setFormdataLogin((prevFormData) => {
-      // console.log(prevFormData)
       return {
         ...prevFormData,
         [event.target.name]: event.target.value,
       };
     });
   };
-
-  // console.log(formDataLogin);
 
   async function createUser() {
     const { data, error } = await supabase.auth.signUp({
@@ -107,17 +103,17 @@ const LoginDrawer = () => {
 
   const handleLogin = () => {
     loginUser();
-    setIsDrawerOpen(false);
+    setIsLoginDrawerOpen(false);
   };
 
   return (
     <Drawer
       anchor="right"
-      open={isDraweOpen}
-      onClose={() => setIsDrawerOpen(false)}
+      open={isLoginDrawerOpen}
+      onClose={() => setIsLoginDrawerOpen(false)}
     >
       <Toolbar>
-        <IconButton onClick={() => setIsDrawerOpen(false)}>
+        <IconButton onClick={() => setIsLoginDrawerOpen(false)}>
           <ClearIcon />
         </IconButton>
       </Toolbar>
@@ -138,11 +134,6 @@ const LoginDrawer = () => {
               />
             </Box>
             <Box pt={1}>
-              {/* <TextField
-                fullWidth
-                id="input-with-sx"
-                label="Password"
-                variant="standard" */}
               <FormControl sx={{ width: "100%" }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">
                   Password
@@ -164,7 +155,6 @@ const LoginDrawer = () => {
                   onChange={handleChangeLogin}
                 />
               </FormControl>
-              {/* /> */}
             </Box>
             <Box
               pt={2}
@@ -175,10 +165,13 @@ const LoginDrawer = () => {
               }}
             >
               <Typography>
-                Don't have an account{" "}
+                Don't have an account?&nbsp;
                 <Link
                   onClick={() => {
                     setSignupScreen(true);
+                  }}
+                  style={{
+                    textDecoration: "none",
                   }}
                 >
                   SignUp

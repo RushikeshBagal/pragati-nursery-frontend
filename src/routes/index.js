@@ -11,7 +11,14 @@ import DashboardResetPassword from "../pages/dashboard/authentication/ResetPassw
 import { Profile } from "../pages/profile/Profile";
 import { CheckoutPage } from "../pages/home/cart/checkoutPage/CheckoutPage";
 
-export const RouterComponent = ({ setShowFooter }) => {
+export const RouterComponent = (props) => {
+  const {
+    isCartOpen,
+    setIsCartOpen,
+    setShowFooter,
+    isLoginDrawerOpen,
+    setIsLoginDrawerOpen,
+  } = props;
   const location = useLocation();
   const { pathname } = location;
 
@@ -35,8 +42,19 @@ export const RouterComponent = ({ setShowFooter }) => {
   }, [pathname, setShowFooter]);
   return (
     <Routes>
+      
       <Route path="/" element={<Navigate to="home" />} />
-      <Route path="/home" element={<Home />} />
+      <Route
+        path="/home"
+        element={
+          <Home
+            isCartOpen={isCartOpen}
+            setIsCartOpen={setIsCartOpen}
+            isLoginDrawerOpen={isLoginDrawerOpen}
+            setIsLoginDrawerOpen={setIsLoginDrawerOpen}
+          />
+        }
+      />
       <Route
         path="/dashboard"
         element={<DashboardLogin setToken={setToken} />}

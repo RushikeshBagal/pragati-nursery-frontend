@@ -91,7 +91,15 @@ export const CustomStepper = () => {
         </>
       ) : (
         <>
-          <Box my={3} mx={3} sx={{ border: "1px solid #ddd", height: "80vh" }}>
+          <Box
+            my={3}
+            mx={3}
+            sx={{
+              border: "1px solid #ddd",
+              borderRadius: 2,
+              minHeight: "40vh",
+            }}
+          >
             {activeStep === 0 ? (
               <AddressSelection />
             ) : activeStep === 1 ? (

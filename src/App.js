@@ -9,13 +9,21 @@ import { useState } from "react";
 
 const App = () => {
   const [showFooter, setShowFooter] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoginDrawerOpen, setIsLoginDrawerOpen] = useState(true);
   return (
     <div className="main-layout">
       <AppThemeProvider>
         <CssBaseline />
-        <Header showIcons={showFooter} />
+        <Header showIcons={showFooter} setIsCartOpen={setIsCartOpen} />
         <BrowserRouter>
-          <RouterComponent setShowFooter={setShowFooter} />
+          <RouterComponent
+            setShowFooter={setShowFooter}
+            isCartOpen={isCartOpen}
+            setIsCartOpen={setIsCartOpen}
+            isLoginDrawerOpen={isLoginDrawerOpen}
+            setIsLoginDrawerOpen={setIsLoginDrawerOpen}
+          />
         </BrowserRouter>
         {showFooter && <Footer />}
       </AppThemeProvider>

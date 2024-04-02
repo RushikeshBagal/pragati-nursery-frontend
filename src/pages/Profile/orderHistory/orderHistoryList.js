@@ -32,7 +32,7 @@ export const OrderHistoryList = () => {
   }
 
   return (
-    <Box sx={{ margin: 5, border: "1px solid #ddd", borderRadius: "20px" }}>
+    <Box sx={{ margin: 5, border: "1px solid #ddd", borderRadius: 2 }}>
       {cartList.map((product, idx) => (
         <Box key={idx}>
           <Box

@@ -19,16 +19,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { supabase } from "../../../utils/supabase";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
-import { useNavigate } from "react-router-dom";
 
-const Header = ({ showIcons }) => {
+const Header = (props) => {
+  const { showIcons, setIsCartOpen } = props;
   const [token, setToken] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  // const navigate = useNavigate();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    // navigate("/profile");
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -60,7 +58,6 @@ const Header = ({ showIcons }) => {
                     size="large"
                     aria-label="show 17 new notifications"
                     color="inherit"
-                    // onClick={()=> <RightSideDrawer/>}
                   >
                     <PersonIcon />
                     <Typography pl={1}>Login/Signup</Typography>
@@ -147,6 +144,7 @@ const Header = ({ showIcons }) => {
                   aria-label="account of current user"
                   aria-haspopup="true"
                   color="inherit"
+                  onClick={() => setIsCartOpen(true)}
                 >
                   <Badge badgeContent={2} color="error">
                     <ShoppingCartIcon />
