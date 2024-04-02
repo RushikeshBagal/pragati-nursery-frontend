@@ -105,7 +105,7 @@ export const InventoryManagement = (props) => {
             }}
           >
             <Box sx={{ paddingX: "20px", mt: 4, mb: 4 }}>
-              {/* <SearchBox /> */}
+              {/* <SearchBox data={List} /> */}
             </Box>
             <TableContainer sx={{ mt: 3, overflowX: "hidden" }}>
               <Table>

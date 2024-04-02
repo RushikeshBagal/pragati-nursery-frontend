@@ -2,10 +2,7 @@ import { useState } from "react";
 import {
   Box,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
-  FormGroup,
   Grid,
   IconButton,
   Input,
@@ -20,8 +17,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { supabase } from "../../../utils/supabase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authentication } from "../../../reducers/loginSlice";
 
-const DashboardLogin = ({setToken}) => {
+const DashboardLogin = ({ setToken }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ const DashboardLogin = ({setToken}) => {
     email: "",
     password: "",
   });
-
+  const dispatch = useDispatch();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -40,52 +39,57 @@ const DashboardLogin = ({setToken}) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
-        password: formData.password
+        password: formData.password,
       });
       if (error) throw error;
-      // console.log(data)
-      setToken(data)
+      dispatch(authentication(data.user));
+      setToken(data?.session?.access_token);
       navigate("/dashboard-home");
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }
-  // console.log(formData);
+
   return (
     <Box
       sx={{
         mt: 15,
         mb: 5,
         display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center",
       }}
     >
       <Box
         sx={{
           width: "75vw",
-          height: "55vh",
+          minHeight: "60vh",
           boxShadow: 3,
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <Grid container>
-          <Grid item xs={12} md={6} lg={6}></Grid>
+          <Grid item xs={12} md={6} lg={6}>
+            logo
+          </Grid>
           <Grid
             item
             xs={12}
             md={6}
             lg={6}
-            sx={{ paddingX: "50px", paddingY: "50px" }}
+            sx={{ paddingX: "30px", paddingY: "10px" }}
           >
-            <Typography mb={1}>Sign In</Typography>
-            {/* <Typography mb={3}>See your website features!</Typography> */}
+            <Typography mb={1} sx={{ textAlign: "center", fontSize: "24px" }}>
+              Sign In
+            </Typography>
             <FormControl variant="standard" fullWidth>
               <InputLabel>
                 <Typography>Username</Typography>
               </InputLabel>
               <Input
-              onChange={(e) => setFormData({...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 sx={{ marginBottom: "8px" }}
                 startAdornment={
                   <InputAdornment position="start">
@@ -99,7 +103,9 @@ const DashboardLogin = ({setToken}) => {
                 <Typography>Password</Typography>
               </InputLabel>
               <Input
-              onChange={(e) => setFormData({...formData, password: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 sx={{ marginBottom: "8px" }}
                 type={showPassword ? "text" : "password"}
                 startAdornment={
@@ -120,31 +126,15 @@ const DashboardLogin = ({setToken}) => {
                 }
               />
             </FormControl>
-            <Box
-              mt={2}
-              mb={2}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Remember me"
-                />
-              </FormGroup>
-              <Link
-                href="/dashboard-forgotpassword"
-                underline="hover"
-              >
-                Forgot Password ?
+            <Box mb={2}>
+              <Link href="/dashboard-forgotpassword" underline="hover">
+                <Typography sx={{ fontSize: "12px" }}>
+                  Forgot Password ?
+                </Typography>
               </Link>
             </Box>
             <Button
-            onClick={handleSubmit}
+              onClick={handleSubmit}
               disabled={disabled}
               variant="contained"
               fullWidth

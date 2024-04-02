@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export const InOutInventory = ({ product, setShowInOut }) => {
   const [selectedIn, setSelectedIn] = useState(false);
@@ -39,7 +38,6 @@ export const InOutInventory = ({ product, setShowInOut }) => {
                 setSelectedIn(true);
                 setSelectedOut(false);
               }}
-              // endIcon={<AddCircleOutlineIcon sx={{ width: 16 }} />}
             >
               In
             </Button>

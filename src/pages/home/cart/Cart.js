@@ -9,12 +9,9 @@ import {
   Button,
   Divider,
   Grid,
-  Paper,
-  styled,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import "./style.css";
 
 const cartList = [
   {
@@ -82,7 +79,7 @@ const Cart = () => {
 
   const onRemoveProduct = (i) => {
     const filteredProduct = products.filter((product, index) => {
-      return index != i;
+      return index !== i;
     });
 
     setProducts(filteredProduct);
@@ -140,7 +137,9 @@ const Cart = () => {
                 />
               </Grid>
               <Grid item xs={2} sx={{ marginTop: 5, textAlign: "center" }}>
-                <Typography>{formatCurrency(product.price * product.quantity)}</Typography>
+                <Typography>
+                  {formatCurrency(product.price * product.quantity)}
+                </Typography>
               </Grid>
               <Grid item xs={2} sx={{ marginTop: 5, textAlign: "center" }}>
                 <IconButton onClick={() => onRemoveProduct(index)}>
@@ -215,17 +214,22 @@ const Cart = () => {
             {formatCurrency(Total_Bill)}
           </Box>
         </Box>
-        <Box sx={{justifyContent:"center", flexDirection:"row", display:"flex"}}>
+        <Box
+          sx={{
+            justifyContent: "center",
+            flexDirection: "row",
+            display: "flex",
+          }}
+        >
           <Button
             fullWidth
             variant="contained"
-            sx={{ position: "absolute", marginTop: "16px"}}
+            sx={{ position: "absolute", marginTop: "16px" }}
           >
             Procced to Checkout
           </Button>
         </Box>
       </Box>
-      
     </Drawer>
   );
 };

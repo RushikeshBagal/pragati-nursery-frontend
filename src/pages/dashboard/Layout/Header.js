@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../utils/supabase";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import { resetAll } from "../../../reducers/resetSlice";
+import store from "../../../store";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,14 +28,11 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  // const handleMenu = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
   async function handleLogout() {
     handleClose();
-    // sessionStorage.removeItem("token")
     const { error } = await supabase.auth.signOut();
+    localStorage.clear();
+    store.dispatch(resetAll());
     if (error) console.log(error);
     navigate("/dashboard");
   }

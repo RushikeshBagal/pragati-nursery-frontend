@@ -4,12 +4,12 @@ import PageNotFound from "../pages/PageNotFound";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
 import Home from "../pages/home/Home";
-import DashboardHome from "../pages/Dashboard/dashboardHome/Home"
-import DashboardLogin from "../pages/Dashboard/authentication/Login";
-import DashboardForgotPassword from "../pages/Dashboard/authentication/ForgotPassword";
-import DashboardResetPassword from "../pages/Dashboard/authentication/ResetPassword";
-// import { InOutInventory } from "../pages/Dashboard/InventoryManagement/InOutInventory";
-import { Profile } from "../pages/Profile/Profile";
+import DashboardHome from "../pages/dashboard/dashboardHome/Home";
+import DashboardLogin from "../pages/dashboard/authentication/Login";
+import DashboardForgotPassword from "../pages/dashboard/authentication/ForgotPassword";
+import DashboardResetPassword from "../pages/dashboard/authentication/ResetPassword";
+import { Profile } from "../pages/profile/Profile";
+import { CheckoutPage } from "../pages/home/cart/checkoutPage/CheckoutPage";
 
 export const RouterComponent = ({ setShowFooter }) => {
   const location = useLocation();
@@ -17,16 +17,16 @@ export const RouterComponent = ({ setShowFooter }) => {
 
   const [token, setToken] = useState(false);
 
-  if(token){
-    sessionStorage.setItem("token", JSON.stringify(token))
+  if (token) {
+    sessionStorage.setItem("token", JSON.stringify(token));
   }
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
-      let data = JSON.parse(sessionStorage.getItem("token"))
-      setToken(data)
+      let data = JSON.parse(sessionStorage.getItem("token"));
+      setToken(data);
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     if (pathname.includes("dashboard")) {
@@ -37,11 +37,15 @@ export const RouterComponent = ({ setShowFooter }) => {
     <Routes>
       <Route path="/" element={<Navigate to="home" />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/dashboard" element={<DashboardLogin setToken={setToken} />} />
-      {token ? 
-      <Route path="/dashboard-home" element={<DashboardHome />} />
-      : ""  
-    }
+      <Route
+        path="/dashboard"
+        element={<DashboardLogin setToken={setToken} />}
+      />
+      {token ? (
+        <Route path="/dashboard-home" element={<DashboardHome />} />
+      ) : (
+        ""
+      )}
       <Route
         path="/dashboard-forgotpassword"
         element={<DashboardForgotPassword />}
@@ -52,8 +56,8 @@ export const RouterComponent = ({ setShowFooter }) => {
       />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-condition" element={<TermsCondition />} />
-      {/* <Route path="/inventory-in-out" element={<InOutInventory />} /> */}
       <Route path="/profile" element={<Profile />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

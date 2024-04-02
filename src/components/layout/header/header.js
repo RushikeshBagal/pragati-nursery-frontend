@@ -19,13 +19,16 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { supabase } from "../../../utils/supabase";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ showIcons }) => {
   const [token, setToken] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  // const navigate = useNavigate();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    // navigate("/profile");
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -33,10 +36,9 @@ const Header = ({ showIcons }) => {
 
   async function handleLogout() {
     handleClose();
-    sessionStorage.removeItem("token")
+    sessionStorage.removeItem("token");
     const { error } = await supabase.auth.signOut();
     if (error) console.log(error);
-    // navigate("/home");
   }
   return (
     <Box>

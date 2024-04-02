@@ -32,6 +32,10 @@ const options = [
     tabName: "Orders",
     icon: "ShoppingCartCheckoutOutlined",
   },
+  {
+    tabName: "Content Management",
+    icon: "NoteAltOutlined",
+  },
 ];
 
 const SideBar = (props) => {
