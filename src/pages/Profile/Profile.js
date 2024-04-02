@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { AddressSection } from "./address/Address";
 import { MyOrders } from "./myOrders/MyOrders";
+import { OrderHistory } from "./orderHistory/OrderHistory";
 
 export const Profile = () => {
   const [selectedButton, setSelectedButton] = useState("Order History");
@@ -45,11 +46,7 @@ export const Profile = () => {
             My Orders
           </Button>
         </ButtonGroup>
-        {selectedButton === "Order History" && (
-          <Box pt={2} sx={{ textAlign: "center" }}>
-            No Order History
-          </Box>
-        )}
+        {selectedButton === "Order History" && <OrderHistory />}
         {selectedButton === "Saved Address" && <AddressSection />}
         {selectedButton === "My Orders" && <MyOrders />}
       </Box>

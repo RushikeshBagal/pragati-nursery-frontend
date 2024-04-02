@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Alert, Button, Slide, Snackbar } from "@mui/material";
 
-export const CustomSuccessSnackBar = (props) => {
-  const { open, setOpen, message } = props;
+export const CustomSnackBar = (props) => {
+  const { open, setOpen, message, type } = props;
   // const [open, setOpen] = useState(false);
 
   // const handleClick = () => {
@@ -34,7 +34,7 @@ export const CustomSuccessSnackBar = (props) => {
       >
         <Alert
           onClose={handleClose}
-          severity="success"
+          severity={type}
           variant="filled"
           sx={{ width: "100%" }}
         >

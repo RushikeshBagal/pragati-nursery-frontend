@@ -14,12 +14,16 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { supabase } from "../../../utils/supabase";
+import { ConfirmationPopUp } from "../../../components/common/ConfirmationPopUp/ConfirmationPopUp";
+import { CustomSnackBar } from "../../../components/common/CustomSnackBar/CustomSnackBar";
 
 export const ExpandableTableRow = (props) => {
   const { list, fetchProductList, setEditProduct, setDisplayProduct } = props;
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const [imageURL, setImageURL] = useState();
+  const [confirmationPopUp, setConfirmationPopUp] = useState(false);
+  const [deleteSnackBar, setDeleteSnackBar] = useState(false);
 
   async function deleteProduct(productId) {
     const { data, error } = await supabase
@@ -34,6 +38,7 @@ export const ExpandableTableRow = (props) => {
     }
     if (data) {
       // console.log(data);
+      setDeleteSnackBar(true)
     }
   }
 
@@ -76,6 +81,8 @@ export const ExpandableTableRow = (props) => {
     getDownloadURL();
   }, []);
 
+  const handleDelete = () => {};
+
   return (
     <>
       <TableRow
@@ -110,7 +117,8 @@ export const ExpandableTableRow = (props) => {
           </IconButton>
           <IconButton
             onClick={() => {
-              deleteProduct(list?.product_id);
+              setConfirmationPopUp(true);
+              // deleteProduct(list?.product_id);
             }}
           >
             <DeleteOutlinedIcon />
@@ -167,6 +175,25 @@ export const ExpandableTableRow = (props) => {
           </Collapse>
         </TableCell>
       </TableRow>
+      {confirmationPopUp && (
+        <ConfirmationPopUp
+          openprops={confirmationPopUp}
+          title="Delete"
+          message="You really want to delete this product"
+          handleAction={handleDelete}
+          setClose={() => setConfirmationPopUp(false)}
+          buttonOne="Cancel"
+          buttonTwo="Delete"
+        />
+      )}
+      {deleteSnackBar && (
+        <CustomSnackBar
+          open={deleteSnackBar}
+          setOpen={setDeleteSnackBar}
+          message="Product Deleted!"
+          type="error"
+        />
+      )}
     </>
   );
 };

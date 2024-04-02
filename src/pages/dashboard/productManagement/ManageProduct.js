@@ -16,7 +16,6 @@ import { CategoryAutocomplete } from "../../../components/common/CustomAutocompl
 import { supabase } from "../../../utils/supabase";
 import { AddProduct } from "./AddProduct";
 import { EditProduct } from "./EditProduct";
-import { CustomSuccessSnackBar } from "../../../components/common/SnackBar/success";
 
 export const ManageProduct = () => {
   const [addProduct, setAddProduct] = useState(false);
